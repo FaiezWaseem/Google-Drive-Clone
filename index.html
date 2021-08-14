@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Drive</title>
+    <script src="https://kit.fontawesome.com/5e14d5d81a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+     <section class="border-bottom">
+        <div class="container-fluid">
+        <div class="row p-4">
+
+            <div class="col-2 d-flex align-items-center" id="logo">
+                <a href=""><img class="google-drive-logo mr-2" width="120" src="img/Logo.png" alt="goole-drive-logo"></a>
+            </div>
+
+            <div class="col-10 d-flex align-items-center">
+
+                <div class="input-group">
+                    <i class="fas fa-search"></i>
+                    <input class="search-input" type="text" placeholder="Search in drive">
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div class="d-flex align-items-center mr-5">
+                        <a href="#"><i class="far fa-question-circle mr-3"></i></a>
+                        <a href="#"><i class="fas fa-cog"></i></a>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <a href="#"><i class="fas fa-bars mr-3"></i></a>
+                        <a href="#"><img class="profile-img" src="img/profile-img.jpg" alt="profile-img"></a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        </div>
+     </section>
+     
+     <section>
+         <div class="container-fluid">
+            <div class="row">
+                <div class="col-2 p-4" id="left">
+
+                    <div class="dropdown d-flex justify-content-center align-items-center mb-4" >
+                            <button class="btn bg-white dropdown-toggle my-drive-btn font-weight-light" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             My Drive
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              <a class="dropdown-item" id="upload">Upload File</a>
+                              <a class="dropdown-item"  onclick="createFolder()">Create Folder</a>
+                            </div>
+
+                    </div>
+                    <a href="#" class="d-flex ml-4 left-bar-btn mb-4">
+                        <div class="mr-4">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <div>
+                            <h5 class="my-auto">Shared with me</h5>
+                        </div>
+                    </a>
+                    <a href="#" class="d-flex ml-4 left-bar-btn mb-4">
+                        <div class="mr-4">
+                            <i class="far fa-clock"></i>
+                        </div>
+                        <div>
+                            <h5 class="my-auto">Recent</h5>
+                        </div>
+                    </a>
+                    <a href="#" class="d-flex ml-4 left-bar-btn mb-4">
+                        <div class="mr-4">
+                            <i class="far fa-star"></i>
+                        </div>
+                        <div>
+                            <h5 class="my-auto">Starred</h5>
+                        </div>
+                    </a>
+                    <a href="#" class="d-flex ml-4 left-bar-btn">
+                        <div class="mr-4">
+                            <i class="far fa-trash-alt"></i>
+                        </div>
+                        <div>
+                            <h5 class="my-auto">Trash</h5>
+                        </div>
+                    </a>
+                    <div class="menu" style="max-width: 200px;">
+                        <ul >
+                            <h5>Options <i class="far fa-times-circle" onclick="dropItemClicked()"></i></h5>
+                            <a class="dropdown-item" id="view" >View</a>
+                            <a class="dropdown-item" id="download" href="null" onclick="dropItemClicked()">Download</a>
+                            <a class="dropdown-item" id="sharelink">Get Link</a>
+                            <a class="dropdown-item" id="delete" data-id="null" onclick="deleteFile(this)">Delete</a>
+                          </ul>
+                      </div>
+                    
+                </div>
+                <div class="col-10 py-4" id="right">
+
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a  onclick="home()" style="cursor: pointer;">Home</a></li>
+                       
+                          
+                        </ol>
+                      </nav>
+                    <div class="quick-access ml-2 mb-5" id="main">
+                        <div>
+                            <p class="mb-3">Home</p>
+                        </div>
+
+                       <div class="d-flex" id="docs" >
+     
+
+                       </div>
+
+                   </div>
+
+                   <div class="quick-access ml-2 mb-5" style="display: none;" id="folder">
+
+                    <div>
+                        <p class="mb-3">Files</p>
+                    </div>
+
+                   <div class="d-flex" id="files" >
+
+                   </div>
+
+               </div>
+
+                </div>
+
+            </div>
+         </div>
+     </section>
+
+
+
+
+     <div id="overlay">
+         <h1 style="color: #fff; font-size: 4rem; font-weight: bolder;">Uploading...</h1>
+        <div class="loader"></div>
+     </div>
+
+
+
+
+
+
+
+
+     <!-- ------FIREBASE SDK---------- -->
+     <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-auth.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-database.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-storage.js"></script> 
+     <!-- ------FIREBASE SDK---------- -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+                   <!-- CONGIG -->
+                   <script src="./js/config.js"></script>
+                   <!-- Main file -->
+                   <script src="./js/main.js"></script>
+        
+</body>
+</html>

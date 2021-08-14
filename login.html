@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./login.css">
+    <title>Login</title>
+</head>
+<body>
+    <div class="login-box">
+        <h2>Login</h2>
+        <form>
+          <div class="user-box">
+            <input type="text" name="" required="" id="email">
+            <label>Email</label>
+          </div>
+          <div class="user-box">
+            <input type="password" name="" required="" id="pass">
+            <label>Password</label>
+          </div>
+          <div class="buttons">
+              <a  onclick="signIn()">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Login
+              </a>
+              <a onclick="register()">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Register
+              </a>
+          </div>
+        </form>
+      </div>
+         <!-- ------FIREBASE SDK---------- -->
+         <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
+         <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-auth.js"></script>
+         <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-database.js"></script>
+         <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-storage.js"></script> 
+         <!-- ------FIREBASE SDK---------- -->
+         <!-- CONGIG -->
+         <script src="./js/config.js"></script>
+         <!-- main file -->
+         <script src="./js/auth.js"></script>
+</body>
+</html>

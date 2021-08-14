@@ -1,0 +1,139 @@
+a:hover{
+    text-decoration: none;
+}
+
+.profile-img{
+    border-radius: 50%;
+    width: 2rem;
+}
+.search-input{
+    background-color: #f1f3f4;
+    width: 35rem;
+    padding: 0.6rem 2.5rem;
+    border-radius: 0.4rem;
+    border: none;
+    outline: none;
+}
+.menu{
+    margin: 10px;
+    display: none;
+    background: rgba( 255, 255, 255 , 1);
+    -webkit-box-shadow:  0px  0px 5.5px 0px rgba(0,0,0, 0.29);
+box-shadow:  0px  0px 5.5px 0px rgba(0,0,0, 0.29);
+cursor: pointer;
+}
+#plusicon:hover , .card:hover{
+    background: rgba( 255, 255, 255 , 1);
+    -webkit-box-shadow:  0px  0px 5.5px 0px rgba(0,0,0, 0.29);
+box-shadow:  0px  0px 5.5px 0px rgba(0,0,0, 0.29);
+cursor: pointer;
+}
+.fa-question-circle,
+.fa-cog,
+.fa-bars{
+    font-size: 1.5rem;
+    color: #5f6368;  
+}
+
+.input-group{
+    position: relative;
+} 
+.fa-search{
+    position: absolute;
+    left: 0.8rem;
+    top: 0.8rem;
+    color: #5f6368;
+}
+
+.new-btn{
+    width: 9rem;
+    box-shadow: -1px 0px 10px -5px rgba(0, 0, 0, 0.44);
+    -webkit-box-shadow: -1px 0px 10px -5px rgba(0, 0, 0, 0.44);
+    -moz-box-shadow: -1px 0px 10px -5px rgba(0, 0, 0, 0.44);
+    border-radius: 4rem;
+}
+.new-btn h5,
+ .left-bar-btn i,
+ .left-bar-btn h5,
+ .mr-drive-list i,
+ .quick-access p{
+    color: #75787a;
+
+}
+.my-drive-btn{
+    font-size: 1.2rem;
+}
+.card h5{
+    color: #474747;
+}
+.fa-stream{
+    color: #4285f4;
+}
+
+.folder,
+.file{
+    font-size: 1.1rem;
+}
+.fa-image{
+    color: #d93126;
+}
+#docs , #files{
+    flex-wrap: wrap;
+}
+.card{
+    margin: 5px;
+}
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    place-items: center;
+    width: 100vw; /* Full width (cover the whole page) */
+    height: 100vh; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); 
+    z-index: 2; 
+    cursor: pointer; 
+    overflow: hidden;
+  }
+  .loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+@media screen and (max-width: 768px) {
+    #left{
+        display: none;
+    }
+    .google-drive-logo , #logo{
+        display: none;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .search-input{
+        width: 140px;
+        margin-right: 10px;
+    }
+    #right{
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .fa-question-circle,
+.fa-cog,
+.fa-bars{
+    font-size: 1em;
+}
+#docs{
+    flex-direction: column-reverse;
+}
+}

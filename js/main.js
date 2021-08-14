@@ -232,11 +232,21 @@ function openNav() {
     document.getElementById("left").classList.remove("col-2");
     document.getElementById("left").classList.remove("p-4");
     if(_x == 0){
-    document.getElementById("left").style.width = '250px'
-    _x=1;
-}else{
-    _x = 0
-    document.getElementById("left").style.width = '0px'
+        document.getElementById("left").style.width = '0px'
+        _x=1;
+    }else{
+        _x = 0
+        document.getElementById("left").style.width = '250px'
 
   }
+  }
+  get('#nav-close').onclick = () =>{
+      if(_x == 0){
+          _x = 1;
+      }else{
+          _x = 0;
+      }
+    document.getElementById("left").classList.remove("col-2");
+    document.getElementById("left").classList.remove("p-4");
+    document.getElementById("left").style.width = '0px'
   }

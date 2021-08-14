@@ -112,10 +112,14 @@ cursor: pointer;
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+  #nav-close{
+      color: #f1f3f4;
+      font-size: 2rem;
+      margin-left: 15px;
+  }
 @media screen and (max-width: 768px) {
     #left{
         height: 100%; /* 100% Full-height */
-        width: 0; /* 0 width - change this with JavaScript */
         position: fixed; /* Stay in place */
         z-index: 2; /* Stay on top */
         top: 0; /* Stay at the top */
@@ -126,8 +130,8 @@ cursor: pointer;
         transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
     }
     .col-2{
-       flex: 0;
-        max-width: 0;
+        flex: 0 0 60%;
+        max-width: 60%;
     }
     .google-drive-logo , #logo{
         display: none;

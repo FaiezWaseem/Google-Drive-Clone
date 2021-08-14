@@ -193,15 +193,18 @@ upload.onclick = function(e){
 }
 function uploadToDrive(f , file){
     get('#overlay').style.display = 'grid'
-    const id = 'AKfycbxuSkMk4VJgrnJ7I6lLYh-3nERY55wpqNhSASACAuvl2hpgcprY2Jjp6H1RZ3cjmiMf'
+    const id = 'AKfycbxJ0Nh8UtJTaHJqD_vXvGHXzdMOIWAq6D8rg1ipUAqz3MtNPo1NultMDWxOY0WaqwNd'
     const url = `https://script.google.com/macros/s/${id}/exec`; 
     console.log('uploading')
     const qs = new URLSearchParams({filename: file.name, mimeType: file.type});
-    fetch(`${url}?${qs}`, {method: "POST", body: JSON.stringify([...new Int8Array(f.target.result)])})
+    fetch(`${url}?${qs}`, {
+ method: "POST",
+  body: JSON.stringify([...new Int8Array(f.target.result)])})
     .then(res => res.json())
     .then(e => {
         get('#overlay').style.display = 'none'
         console.log('file uploaded')
+        console.log(e)
         var url = ` https://drive.google.com/uc?export=download&id=${e.fileId}`
         uploadfile( url , file.name , file.type)
     })
@@ -224,3 +227,16 @@ function dropDown($){
 function dropItemClicked(){
     get('.menu').style.display = 'none' 
 }
+var _x = 0
+function openNav() {
+    document.getElementById("left").classList.remove("col-2");
+    document.getElementById("left").classList.remove("p-4");
+    if(_x == 0){
+    document.getElementById("left").style.width = '250px'
+    _x=1;
+}else{
+    _x = 0
+    document.getElementById("left").style.width = '0px'
+
+  }
+  }

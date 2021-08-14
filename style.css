@@ -82,6 +82,7 @@ cursor: pointer;
 }
 .card{
     margin: 5px;
+    overflow: hidden;
 }
 #overlay {
     position: fixed; /* Sit on top of the page content */
@@ -113,7 +114,20 @@ cursor: pointer;
   }
 @media screen and (max-width: 768px) {
     #left{
-        display: none;
+        height: 100%; /* 100% Full-height */
+        width: 0; /* 0 width - change this with JavaScript */
+        position: fixed; /* Stay in place */
+        z-index: 2; /* Stay on top */
+        top: 0; /* Stay at the top */
+        left: 0;
+        background-color: #111; /* Black*/
+        overflow-x: hidden; /* Disable horizontal scroll */
+        padding-top: 60px; /* Place content 60px from the top */
+        transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    }
+    .col-2{
+       flex: 0;
+        max-width: 0;
     }
     .google-drive-logo , #logo{
         display: none;

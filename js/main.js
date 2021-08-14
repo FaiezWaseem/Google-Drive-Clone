@@ -38,7 +38,7 @@ console.error(err)
 function addPicture(title , link , key ){
     var html;
     try{ html = `
-    <div   class="card mr-4 ${key}" id="${key}" key="${key}" link="${link}" style="width: 18rem;" onclick="dropDown(this)">
+    <div   class="card mr-4 ${key}" id="${key}" key="${key}" link="${link}" title="${title}" style="width: 18rem;" onclick="dropDown(this)">
     <img class="card-img-top" src="${link}" alt="Couldnt load">
     <div class="card-body">
     <h5 class="card-title mb-0 file"><i class="fas fa-image mr-4"></i>${title}</h5>                           
@@ -53,7 +53,7 @@ console.error(err)
 function zipfile(title , link ,  key){
     var html;
     try{ html = `
-    <div class="card mr-4" style="width: 18rem; height: 6rem" id="${key}" key="${key}" link="${link}"  onclick="dropDown(this)">
+    <div class="card mr-4" style="width: 18rem; height: 6rem" id="${key}" title="${title}" key="${key}" link="${link}"  onclick="dropDown(this)">
     <div class="card-body">
     <h5 class="card-title mb-0 file"> <i class="fas fa-file-archive mr-4"></i></i>${title}</h5>                           
     </div>
@@ -66,7 +66,7 @@ console.error(err)
 function video(title , link , key){
     var html;
     try{ html = `
-    <div class="card mr-4" style="width: 18rem; height: 14rem" id="${key}" key="${key}" link="${link}" onclick="dropDown(this)" >
+    <div class="card mr-4" style="width: 18rem; height: 14rem" id="${key}" title="${title}" key="${key}" link="${link}" onclick="dropDown(this)" >
     <video class="card-img-top" src="${link}" controls></video>
     <div class="card-body">
     <h5 class="card-title mb-0 file"><i class="fas fa-image mr-4"></i>${title}</h5>                           
@@ -218,11 +218,13 @@ function uploadToDrive(f , file){
 function dropDown($){
     const key = $.getAttribute('key')
     const link = $.getAttribute('link')
+    const title = $.getAttribute('title')
     const dropdown = get('.menu')
 
     dropdown.style.display = 'block'
     get('#delete').setAttribute("data-id", key);
     get('#download').setAttribute("href", link);
+    get('#title-option').textContent = title
 }
 function dropItemClicked(){
     get('.menu').style.display = 'none' 

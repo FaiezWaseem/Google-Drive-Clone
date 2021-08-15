@@ -178,7 +178,7 @@ upload.onclick = function(e){
    
 
 input.onchange = e =>{
-    uploadToDrive(e)
+    // uploadToDrive(e)
     overlay.style.display = 'grid'
     files = e.target.files;
     fileName = e.target.files[0].name;
@@ -187,7 +187,7 @@ input.onchange = e =>{
     reader.readAsArrayBuffer(files[0]);
     reader.onload = f => {
         
-        // uploadToDrive(f , files[0])
+        uploadToDrive2(f , files[0])
        }
    }    
    input.click();
@@ -195,8 +195,9 @@ input.onchange = e =>{
 }
 
 var overlay = get('#overlay')
-/*
-function uploadToDrive(f , file){
+
+function uploadToDrive2(f , file){
+    get('#upload_response').display = 'none'
     get('#overlay').style.display = 'grid'
     const id = 'AKfycbxfwq0PGdYnf6LYsFj9Rog5veT00jukFHZPL_l5WipFH_8ApxLgoiEtSGfpsGA2NNGc'
     const url = `https://script.google.com/macros/s/${id}/exec`; 
@@ -216,10 +217,10 @@ function uploadToDrive(f , file){
     .catch(err =>{
         get('#overlay').style.display = 'none'
          console.log(err)
-         alert('Uploading Error \n ' + err)
+         alert('Uploading Error \n ' + JSON.stringify(err))
     })
 }
-*/
+
 function uploadToDrive($){
     const accessToken = 'ya29.a0ARrdaM8NT4tjho1FNhE79vFTX4KCyt4ez-qaMSv2FF1ejt1R0-iMZwClIdQkm82HP81852Tk7QTabHY3WrY_c2xgbE_SAnmTmywGVr8RfL20C1c1qq8SttYgZ6P4O9y6GNA0uV0DMq9opAUxrxcIWH4tyChhjQ'; 
      run($)
@@ -250,7 +251,7 @@ function uploadToDrive($){
         const ru = new ResumableUploadToGoogleDrive();
         ru.Do(resource, function(res, err) {
           if (err) {
-              alert('Unable To Upload : \n' +err)
+              alert('Unable To Upload : \n' +JSON.stringify(err))
               console.log(err);
               overlay.style.display = 'none'
             return;

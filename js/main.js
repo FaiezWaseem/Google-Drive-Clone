@@ -233,7 +233,7 @@ function getAccessToken(){
     .then(res => res.json())
     .then(e => {
       drive_accessToken = e.token;
-       
+       get('#storage').innerHTML =  FileSize(e.used_storage) + "/"+ FileSize(e.total_storage)
         console.log(e)
  
     })

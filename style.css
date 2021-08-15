@@ -115,8 +115,8 @@ cursor: pointer;
   #nav-close{
       color: #f1f3f4;
       font-size: 2rem;
-      margin-left: 15px;
-  }
+   display: none;
+    }
 @media screen and (max-width: 768px) {
     #left{
         height: 100%; /* 100% Full-height */
@@ -132,6 +132,9 @@ cursor: pointer;
     .col-2{
         flex: 0 0 60%;
         max-width: 60%;
+    }
+    #nav-close{
+        display: block;
     }
     .google-drive-logo , #logo{
         display: none;

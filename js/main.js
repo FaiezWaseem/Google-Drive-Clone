@@ -224,7 +224,9 @@ function dropDown($){
     dropdown.style.display = 'block'
     get('#delete').setAttribute("data-id", key);
     get('#download').setAttribute("href", link);
-    get('#title-option').textContent = title
+    get('#title-option').textContent = title ;
+    get('#title-option').innerHTML += `<i class="far fa-times-circle" onclick="dropItemClicked()">` ;
+
 }
 function dropItemClicked(){
     get('.menu').style.display = 'none' 
@@ -252,3 +254,13 @@ function openNav() {
     document.getElementById("left").classList.remove("p-4");
     document.getElementById("left").style.width = '0px'
   }
+
+ window.addEventListener('resize' , function(e){
+     if(e.currentTarget.innerWidth > 768){
+      console.log(e.currentTarget.innerHeight)
+      console.log(e.currentTarget.innerWidth)
+    document.getElementById("left").style.width = ''
+    document.getElementById("left").classList.add("col-2");
+    document.getElementById("left").classList.add("p-4");
+  }
+ }) 

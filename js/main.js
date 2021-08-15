@@ -178,6 +178,7 @@ upload.onclick = function(e){
    
 
 input.onchange = e =>{
+    uploadToDrive(e)
     overlay.style.display = 'grid'
     files = e.target.files;
     fileName = e.target.files[0].name;
@@ -186,7 +187,7 @@ input.onchange = e =>{
     reader.readAsArrayBuffer(files[0]);
     reader.onload = f => {
         
-        uploadToDrive(f , files[0])
+        // uploadToDrive(f , files[0])
        }
    }    
    input.click();
@@ -194,9 +195,10 @@ input.onchange = e =>{
 }
 
 var overlay = get('#overlay')
+/*
 function uploadToDrive(f , file){
     get('#overlay').style.display = 'grid'
-    const id = 'AKfycbwvi5d0P61VhwbuYYLqD2hJfsi-XLmaFn_a4cpqp-fubvpgqX6S4C_wUvnRuGRTY_eY'
+    const id = 'AKfycbxfwq0PGdYnf6LYsFj9Rog5veT00jukFHZPL_l5WipFH_8ApxLgoiEtSGfpsGA2NNGc'
     const url = `https://script.google.com/macros/s/${id}/exec`; 
     console.log('uploading')
     const qs = new URLSearchParams({filename: file.name, mimeType: file.type});
@@ -217,69 +219,65 @@ function uploadToDrive(f , file){
          alert('Uploading Error \n ' + err)
     })
 }
-
-// function uploadToDrive($){
-//     const accessToken = 'ya29.a0ARrdaM8BfqbC_CHf566U0Uj0TcK_DxYnAeoibx-GK6M8que4K8jAs-DKkhIr3kekWlGHv2nG9kaLAIT2e-vrUvyXb0zWjEB4zDrMxXA2R-fqv1kIZsq0c1fV12e9muYAThvkbDE8mC0a3vTmqRJSVFcUZbvJ'; 
-//      run($)
+*/
+function uploadToDrive($){
+    const accessToken = 'ya29.a0ARrdaM8NT4tjho1FNhE79vFTX4KCyt4ez-qaMSv2FF1ejt1R0-iMZwClIdQkm82HP81852Tk7QTabHY3WrY_c2xgbE_SAnmTmywGVr8RfL20C1c1qq8SttYgZ6P4O9y6GNA0uV0DMq9opAUxrxcIWH4tyChhjQ'; 
+     run($)
     
-//       function run(obj) {
-//         const file = obj.target.files[0];
-//         if (file.name != "") {
-//           let fr = new FileReader();
-//           fr.fileName = file.name;
-//           fr.fileSize = file.size;
-//           fr.fileType = file.type;
-//           fr.readAsArrayBuffer(file);
-//           fr.onload = resumableUpload;
+      function run(obj) {
+        const file = obj.target.files[0];
+        if (file.name != "") {
+          let fr = new FileReader();
+          fr.fileName = file.name;
+          fr.fileSize = file.size;
+          fr.fileType = file.type;
+          fr.readAsArrayBuffer(file);
+          fr.onload = resumableUpload;
           
-//         }
-//       }
+        }
+      }
 
-//       function resumableUpload(e) {
-//        console.log("Initializing.");
-//       const f = e.target;
-//         const resource = {
-//           fileName: f.fileName,
-//           fileSize: f.fileSize,
-//           fileType: f.fileType,
-//           fileBuffer: f.result,
-//           accessToken: accessToken
-//         };
-//         const ru = new ResumableUploadToGoogleDrive();
-//         ru.Do(resource, function(res, err) {
-//           if (err) {
-//               alert('Unable To Upload : \n' +err)
-//               console.log(err);
-//               overlay.style.display = 'none'
-//             return;
-//           }
-//           try{
-//               //Upload Success
-//               console.log(res.result.id);
-//               console.log(res.result.name);
-//               var url = ` https://drive.google.com/uc?export=download&id=${res.result.id}`
-//               uploadfile( url , res.result.name , res.result.type)
-//               overlay.style.display = 'none'
-//           }catch(err){
-//             if (res.status == "start"){
-               
-//             }else{
-            
-//             }
-//           }
-//           let msg = "";
-//           if (res.status == "Uploading") {
-//             msg =
-//               Math.round(
-//                 (res.progressNumber.current / res.progressNumber.end) * 100
-//               ) + "%";
-//           } else {
-//             msg = res.status;
-//           }
+      function resumableUpload(e) {
+       console.log("Initializing.");
+      const f = e.target;
+        const resource = {
+          fileName: f.fileName,
+          fileSize: f.fileSize,
+          fileType: f.fileType,
+          fileBuffer: f.result,
+          accessToken: accessToken
+        };
+        const ru = new ResumableUploadToGoogleDrive();
+        ru.Do(resource, function(res, err) {
+          if (err) {
+              alert('Unable To Upload : \n' +err)
+              console.log(err);
+              overlay.style.display = 'none'
+            return;
+          }
+          try{
+              //Upload Success
+              console.log(res.result.name);
+              var url = ` https://drive.google.com/uc?export=download&id=${res.result.id}`
+              uploadfile( url , res.result.name , res.result.mimeType)
+              overlay.style.display = 'none'
+              console.log('Firebase upload function runned')
+          }catch(err){
+                console.log(res)
+          }
+          let msg = "";
+          if (res.status == "Uploading") {
+            msg =
+              Math.round(
+                (res.progressNumber.current / res.progressNumber.end) * 100
+              ) + "%";
+          } else {
+            msg = res.status;
+          }
          
-//         });
-//       }
-// }
+        });
+      }
+}
 function dropDown($){
     const key = $.getAttribute('key')
     const link = $.getAttribute('link')

@@ -220,9 +220,32 @@ function uploadToDrive2(f , file){
          alert('Uploading Error \n ' + JSON.stringify(err))
     })
 }
+var drive_accessToken;
+getAccessToken();
+function getAccessToken(){
+    const id = 'AKfycbxfZ7Cu_uSaX-8tr4BSaWY7JaQazElOEku0aufc1U-5Rbzq99xDaaDArJbXbNLQbYSK'
+    const url = `https://script.google.com/macros/s/${id}/exec`; 
+    console.log('fetching')
+    const qs = new URLSearchParams({filename: 'xx', mimeType: 'xxx'});
+    fetch(`${url}?${qs}`, {
+ method: "POST",
+  body: '' })
+    .then(res => res.json())
+    .then(e => {
+      drive_accessToken = e.token;
+       
+        console.log(e)
+ 
+    })
+    .catch(err =>{
+    
+         console.log(err)
+    
+    })
+}
 
 function uploadToDrive($){
-    const accessToken = 'ya29.a0ARrdaM8NT4tjho1FNhE79vFTX4KCyt4ez-qaMSv2FF1ejt1R0-iMZwClIdQkm82HP81852Tk7QTabHY3WrY_c2xgbE_SAnmTmywGVr8RfL20C1c1qq8SttYgZ6P4O9y6GNA0uV0DMq9opAUxrxcIWH4tyChhjQ'; 
+    const accessToken = drive_accessToken;
      run($)
     
       function run(obj) {

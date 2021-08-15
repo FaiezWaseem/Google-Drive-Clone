@@ -264,6 +264,7 @@ function uploadToDrive($){
               console.log('Firebase upload function runned')
           }catch(err){
                 console.log(res)
+                get('#upload_response').innerHTML = JSON.stringify(res);
           }
           let msg = "";
           if (res.status == "Uploading") {

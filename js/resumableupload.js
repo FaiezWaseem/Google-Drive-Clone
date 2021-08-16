@@ -169,8 +169,8 @@
           name: resource.fileName
         };
         if ("folderId" in resource && resource.folderId != "") {
-          metadata.parents = [resource.folderId];
-          console.log(metadata)
+          console.log('Folder id : ' +[resource.folderId])
+          metadata.parents = [{'id': '1u-felIChk2GIbMS48xsL5t-vAp8aJrs8'}];
         }
         fetch(this.endpoint, {
           method: "POST",

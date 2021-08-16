@@ -179,14 +179,14 @@ upload.onclick = function(e){
 
 input.onchange = e =>{
     // uploadToDrive(e)
+    
+    console.log(FileSize(parseInt(e.target.files[0].size)))
     overlay.style.display = 'grid'
     files = e.target.files;
     fileName = e.target.files[0].name;
-    console.log(e.target.files[0].name);
     reader = new FileReader();
     reader.readAsArrayBuffer(files[0]);
     reader.onload = f => {
-        
         uploadToDrive2(f , files[0])
        }
    }    
@@ -209,8 +209,6 @@ function uploadToDrive2(f , file){
     .then(res => res.json())
     .then(e => {
         get('#overlay').style.display = 'none'
-        console.log('file uploaded')
-        console.log(e)
         var url = ` https://drive.google.com/uc?export=download&id=${e.fileId}`
         uploadfile( url , file.name , file.type)
     })
@@ -223,9 +221,8 @@ function uploadToDrive2(f , file){
 var drive_accessToken;
 getAccessToken();
 function getAccessToken(){
-    const id = 'AKfycbxfZ7Cu_uSaX-8tr4BSaWY7JaQazElOEku0aufc1U-5Rbzq99xDaaDArJbXbNLQbYSK'
+    const id = 'AKfycbz19inbya5CcwM48qEXSQk4VssWSQNCcvcrmUBIk6QVgGsUoOBi2t9Cjn7Cy_6UnrW9'
     const url = `https://script.google.com/macros/s/${id}/exec`; 
-    console.log('fetching')
     const qs = new URLSearchParams({filename: 'xx', mimeType: 'xxx'});
     fetch(`${url}?${qs}`, {
  method: "POST",
@@ -234,8 +231,6 @@ function getAccessToken(){
     .then(e => {
       drive_accessToken = e.token;
        get('#storage').innerHTML =  FileSize(e.used_storage) + "/"+ FileSize(e.total_storage)
-        console.log(e)
- 
     })
     .catch(err =>{
     
@@ -275,19 +270,19 @@ function uploadToDrive($){
         ru.Do(resource, function(res, err) {
           if (err) {
               alert('Unable To Upload : \n' +JSON.stringify(err))
-              console.log(err);
+              console.log("UPload Failed \n"+err);
               overlay.style.display = 'none'
             return;
           }
           try{
               //Upload Success
-              console.log(res.result.name);
+            
               var url = ` https://drive.google.com/uc?export=download&id=${res.result.id}`
               uploadfile( url , res.result.name , res.result.mimeType)
               overlay.style.display = 'none'
-              console.log('Firebase upload function runned')
+              console.log('upload Successs')
           }catch(err){
-                console.log(res)
+        
                 get('#upload_response').innerHTML = JSON.stringify(res);
           }
           let msg = "";

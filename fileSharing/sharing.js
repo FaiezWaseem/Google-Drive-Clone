@@ -8,9 +8,10 @@ function getParam ()
     }
     return obj
 }
-var url = getParam ();
-const key = url.key
-const uid = url.uid
+var url = getParam();
+console.log(url)
+const key = atob(url.key)
+const uid = atob(url.uid)
 const folder = url.folder
 var download_url ;
 const main = document.querySelector('.main')

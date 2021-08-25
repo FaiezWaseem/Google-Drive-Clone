@@ -309,7 +309,8 @@ function dropDown($){
     get('#download').setAttribute("href", link);
     get('#title-option').textContent = title ;
     get('#title-option').innerHTML += `<i class="far fa-times-circle" onclick="dropItemClicked()">` ;
-   get('#sharelink').href = 'https://faiezwaseem.github.io/Google-Drive-Clone/fileSharing/' + param;
+
+   get('#sharelink').onclick = copytext('https://faiezwaseem.github.io/Google-Drive-Clone/fileSharing/' + param);
 }
 function dropItemClicked(){
     get('.Loading-Modal').style.display = 'none' 
@@ -349,3 +350,13 @@ function openNav() {
     var $_i = Math.floor( Math.log(size) / Math.log(1024) );
    return ( size / Math.pow(1024, $_i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][$_i];
    }
+   function copytext(text) {
+    var input = document.createElement('textarea');
+    input.innerHTML = text;
+    document.body.appendChild(input);
+    input.select();
+    var resultCopy = document.execCommand("copy");
+    document.body.removeChild(input);
+    alert('copied')
+    return resultCopy;
+  }

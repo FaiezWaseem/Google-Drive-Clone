@@ -12,15 +12,17 @@ var url = getParam ();
 const key = url.key
 const uid = url.uid
 const folder = url.folder
+var download_url ;
 const main = document.querySelector('.main')
-firebase.database().ref('drive/'+uid+"/"+folder+'/'+key).on('child_added' , function(snapshot){
-    console.log(snapshot.val())
+firebase.database().ref('drive/'+uid+"/"+folder+'/'+key).once('value').then(function (snapshot) {
+   document.querySelector('#title').innerText = snapshot.val().filename;
+   download_url = snapshot.val().file;
+   document.querySelector('#download').href = download_url;
     const fname = snapshot.val().filename;
     if(snapshot.key == "folder"){
  
     }else{
         var type = snapshot.val().filename;
-        console.log(type)
     if(type.includes('.png') ||type.includes('.PNG') || type.includes('.jpg') || type.includes('.gif')){
         main.innerHTML +=`<img src="${snapshot.val().file}" alt="not found">`
         
@@ -41,3 +43,7 @@ firebase.database().ref('drive/'+uid+"/"+folder+'/'+key).on('child_added' , func
     }
 }
 })
+
+function goback(){
+    console.log(window.location)
+}

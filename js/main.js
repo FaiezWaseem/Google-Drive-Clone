@@ -310,7 +310,7 @@ function dropDown($){
     get('#title-option').textContent = title ;
     get('#title-option').innerHTML += `<i class="far fa-times-circle" onclick="dropItemClicked()">` ;
 
-   get('#sharelink').onclick = copytext('https://faiezwaseem.github.io/Google-Drive-Clone/fileSharing/' + param);
+   get('#sharelink').onclick=() => { copytext('https://faiezwaseem.github.io/Google-Drive-Clone/fileSharing/' + param) };
 }
 function dropItemClicked(){
     get('.Loading-Modal').style.display = 'none' 

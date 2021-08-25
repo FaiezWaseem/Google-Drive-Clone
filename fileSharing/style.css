@@ -1,0 +1,68 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container{
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.6);
+}
+.container .header{
+    height: 6vw;
+    background: rgba( 255, 255, 255 , 1);
+    -webkit-box-shadow:  0px  0px 12.5px 0px rgba(255, 255, 255, 0.5);
+box-shadow:  0px  0px 12.5px 0px rgba(255, 255, 255, 0.5);
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.container .header i , .container .header h1{
+    margin: 0px 20px;
+}
+.container .header i {
+    font-size: 2rem;
+}
+.container .main{
+    display: grid;
+    place-items: center;
+    width: 100vw;
+    height: 80vh
+}
+.container .main img , .container .main video
+{   
+    border-radius:10px ;
+    width: 600px;
+    height: 400px;
+    background: #fff;
+}
+.container .main .card{
+    display: grid;
+    place-items: center;
+    border-radius:10px ;
+    width: 600px;
+    height: 400px;
+    background: #fff;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.container .main .card i{
+    font-size: 16rem;
+}
+@media screen and (max-width: 768px) {
+    .container .main img  , .container .main .card
+{   
+    width: 250px;
+    height: 200px;
+}
+.container .main video{
+    width: 300px;
+    height: 250px;
+}
+.container .main .card i{
+    font-size: 9rem;
+}
+.container .header{
+    height: 10vh;
+}
+}

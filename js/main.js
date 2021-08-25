@@ -197,7 +197,6 @@ input.onchange = e =>{
 var overlay = get('#overlay')
 
 function uploadToDrive2(f , file){
-    get('#upload_response').display = 'none'
     get('#overlay').style.display = 'grid'
     const id = 'AKfycbxfwq0PGdYnf6LYsFj9Rog5veT00jukFHZPL_l5WipFH_8ApxLgoiEtSGfpsGA2NNGc'
     const url = `https://script.google.com/macros/s/${id}/exec`; 
@@ -302,17 +301,18 @@ function dropDown($){
     const key = $.getAttribute('key')
     const link = $.getAttribute('link')
     const title = $.getAttribute('title')
-    const dropdown = get('.menu')
-
-    dropdown.style.display = 'block'
+    const dropdown = get('.Loading-Modal')
+    
+   const param = `?key=${btoa(key)}&uid=${btoa(uid)}&folder=${folder}`
+    dropdown.style.display = 'grid'
     get('#delete').setAttribute("data-id", key);
     get('#download').setAttribute("href", link);
     get('#title-option').textContent = title ;
     get('#title-option').innerHTML += `<i class="far fa-times-circle" onclick="dropItemClicked()">` ;
-
+   get('#sharelink').href = 'https://faiezwaseem.github.io/Google-Drive-Clone/fileSharing/' + param;
 }
 function dropItemClicked(){
-    get('.menu').style.display = 'none' 
+    get('.Loading-Modal').style.display = 'none' 
 }
 var _x = 0
 function openNav() {

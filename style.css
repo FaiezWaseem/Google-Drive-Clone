@@ -150,6 +150,9 @@ cursor: pointer;
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+  #nav{
+      visibility: hidden;
+  }
   #nav-close{
       color: #f1f3f4;
       font-size: 2rem;
@@ -171,6 +174,9 @@ cursor: pointer;
         flex: 0 0 60%;
         max-width: 60%;
     }
+    #nav{
+        visibility: visible;
+    }
     #nav-close{
         display: block;
     }
@@ -180,7 +186,7 @@ cursor: pointer;
         max-width: 100%;
     }
     .search-input{
-        width: 140px;
+        width: 180px;
         margin-right: 10px;
     }
     #right{

@@ -360,3 +360,7 @@ function openNav() {
     alert('copied')
     return resultCopy;
   }
+
+  get('.fa-sign-out-alt').onclick=()=>{
+      auth.signOut();
+  }

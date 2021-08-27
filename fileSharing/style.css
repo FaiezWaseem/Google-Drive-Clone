@@ -52,17 +52,24 @@ align-items: center;
 @media screen and (max-width: 768px) {
     .container .main img  , .container .main .card
 {   
-    width: 250px;
+    width: 280px;
     height: 200px;
+    box-sizing: border-box;
 }
 .container .main video{
     width: 300px;
     height: 250px;
 }
 .container .main .card i{
-    font-size: 9rem;
+    font-size: 5rem;
+}
+.container .main .card h1{
+    font-size: 1rem;
 }
 .container .header{
     height: 10vh;
+}
+.container .header h1{
+    font-size: 1rem;
 }
 }

@@ -302,7 +302,6 @@ function dropDown($){
     const link = $.getAttribute('link')
     const title = $.getAttribute('title')
     const dropdown = get('.Loading-Modal')
-    
    const param = `?key=${btoa(key)}&uid=${btoa(uid)}&folder=${folder}`
     dropdown.style.display = 'grid'
     get('#delete').setAttribute("data-id", key);
@@ -360,7 +359,6 @@ function openNav() {
     alert('copied')
     return resultCopy;
   }
-
-  get('.fa-sign-out-alt').onclick=()=>{
+get('.fa-sign-out-alt').onclick=()=>{
       auth.signOut();
   }

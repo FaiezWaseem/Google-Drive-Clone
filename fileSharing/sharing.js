@@ -9,7 +9,6 @@ function getParam ()
     return obj
 }
 var url = getParam();
-console.log(url)
 const key = atob(url.key)
 const uid = atob(url.uid)
 const folder = url.folder
@@ -46,5 +45,5 @@ firebase.database().ref('drive/'+uid+"/"+folder+'/'+key).once('value').then(func
 })
 
 function goback(){
-    console.log(window.location)
+    window.location.replace("../index.html");
 }

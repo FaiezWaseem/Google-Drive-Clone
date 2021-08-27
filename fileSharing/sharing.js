@@ -9,10 +9,10 @@ function getParam ()
     return obj
 }
 var url = getParam();
-const key = atob(url.key)
-const uid = atob(url.uid)
-const folder = url.folder
-var download_url ;
+const key = atob(url.key);
+const uid = atob(url.uid);
+const folder = url.folder;
+var download_url;
 const main = document.querySelector('.main')
 firebase.database().ref('drive/'+uid+"/"+folder+'/'+key).once('value').then(function (snapshot) {
    document.querySelector('#title').innerText = snapshot.val().filename;
@@ -43,7 +43,4 @@ firebase.database().ref('drive/'+uid+"/"+folder+'/'+key).once('value').then(func
     }
 }
 })
-
-function goback(){
-    window.location.replace("../index.html");
-}
+function goback(){window.location.replace("../index.html");}

@@ -178,7 +178,7 @@ upload.onclick = function(e){
    
 
 input.onchange = e =>{
-    // uploadToDrive(e)
+    uploadToDrive(e)
     
     console.log(FileSize(parseInt(e.target.files[0].size)))
     overlay.style.display = 'grid'
@@ -187,7 +187,7 @@ input.onchange = e =>{
     reader = new FileReader();
     reader.readAsArrayBuffer(files[0]);
     reader.onload = f => {
-        uploadToDrive2(f , files[0])
+        // uploadToDrive2(f , files[0])
        }
    }    
    input.click();
@@ -195,7 +195,7 @@ input.onchange = e =>{
 }
 
 var overlay = get('#overlay')
-
+// This method have file upload size limit max 20mb
 function uploadToDrive2(f , file){
     get('#overlay').style.display = 'grid'
     const id = 'AKfycbxfwq0PGdYnf6LYsFj9Rog5veT00jukFHZPL_l5WipFH_8ApxLgoiEtSGfpsGA2NNGc'
@@ -237,7 +237,29 @@ function getAccessToken(){
     
     })
 }
-
+function getFileShaingPermission(fid){
+    
+    const id = 'AKfycbyb3Z3EwstJO5cKa8k5cIMglSRo4kg2mf1VVDdL8-evCQ4M063HPLUlw_L7f9S2JE4'
+    const url = `https://script.google.com/macros/s/${id}/exec`; 
+    const qs = new URLSearchParams({id: fid});
+    fetch(`${url}?${qs}`, {
+        method: "POST",
+         body: '' })
+           .then(res => res.json())
+           .then(e => {
+             console.log(e)
+           })
+           .catch(err =>{
+           
+                console.log(err)
+           
+           })
+}
+// this method have no upload size limit 
+//thus it needs access token to upload file 
+//still file can only be uploaded to root directory 
+//so we after uploading it to root folder we move it to public folder
+//using getFileShaingPermission() function which just move it to public folder
 function uploadToDrive($){
     const accessToken = drive_accessToken;
      run($)
@@ -277,12 +299,17 @@ function uploadToDrive($){
               //Upload Success
             
               var url = ` https://drive.google.com/uc?export=download&id=${res.result.id}`
+              getFileShaingPermission(res.result.id)
               uploadfile( url , res.result.name , res.result.mimeType)
               overlay.style.display = 'none'
               console.log('upload Successs')
           }catch(err){
-        
-                get('#upload_response').innerHTML = JSON.stringify(res);
+              if(res.status === "Uploading"){
+
+                  console.log(res.progressByte.current)
+                  console.log(res.progressByte.total)
+              }
+     
           }
           let msg = "";
           if (res.status == "Uploading") {
@@ -290,6 +317,7 @@ function uploadToDrive($){
               Math.round(
                 (res.progressNumber.current / res.progressNumber.end) * 100
               ) + "%";
+              document.getElementById('uploading').innerText = "Uploaded : " + msg
           } else {
             msg = res.status;
           }

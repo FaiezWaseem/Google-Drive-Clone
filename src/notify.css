@@ -1,0 +1,83 @@
+﻿.jnotify {
+    font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: small;
+    display: none;
+    position: absolute;
+    z-index: 101;
+    bottom: 45px;
+    right: 15px;
+    color: white;
+    overflow: hidden;
+    border-radius: 4px;
+    z-index: 9999;
+    background: #343A40;
+    width: auto;
+    min-width: 250px;
+    max-width: 500px;
+}
+
+    .jnotify .message-container {
+        padding: 10px;        
+    }
+
+    .jnotify .message {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        text-align: left;
+        font-weight: bold;
+        padding-left: 30px;
+        padding-right: 35px;
+    }
+
+    .jnotify .description {
+        text-align: justify;
+        padding: 10px;
+        margin-left: 30px;
+        margin-right: 30px;
+        margin-bottom: 5px;
+        line-height: 1.5;
+        overflow-y: auto;
+        max-height: 200px;
+    }
+
+    .jnotify .close {
+        position: relative;
+        float: right;
+        top: -17px;
+        width: 16px;
+        height: 16px;
+        background: url('images/close.png') no-repeat center;
+        border-radius: 5px;
+        border: 1px #2f2f2f solid;
+        cursor: pointer;
+    }
+
+    .jnotify .icon {
+        width: 24px;
+        height: 24px;
+        float: left;
+        position: absolute;
+        top: 6px;
+        left: 10px;
+    }
+
+        .jnotify .icon.success {
+            background: url('images/success.png') no-repeat center;
+        }
+
+        .jnotify .icon.warning {
+            background: url('images/warning.png') no-repeat center;
+        }
+
+        .jnotify .icon.info {
+            background: url('images/info.png') no-repeat center;
+        }
+
+        .jnotify .icon.error {
+            background: url('images/error.png') no-repeat center;
+        }
+
+        .jnotify .icon.default {
+            background: url('images/note.png') no-repeat center;
+        }

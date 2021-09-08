@@ -48,6 +48,13 @@ function addPicture(title , link , key ){
    document.getElementById('files').innerHTML += html
     }catch(err){
 console.error(err)
+jNotify.error('Error', 'Something went wrong while loading a file',{
+    delay: 3000,
+    fadeDelay: 500,
+    closeButton: true,
+    titleBold: true,
+    offset: 40,
+    });
     }
 }
 function zipfile(title , link ,  key){
@@ -107,7 +114,7 @@ if(foldername != null && foldername != ""){
    console.error(err)
     }
 }else{
-    alert("Nothing Created")
+    jNotify.info('info', 'No Folder Created');
 }
 }
 function loadfolders(){
@@ -171,7 +178,13 @@ var upload = get('#upload')
 
 upload.onclick = function(e){
     if(folder === null){
-        alert("no folder Selected")
+        jNotify.error('Error', 'No Folder Selected. \n Please Select a Folder to Upload Files in.',{
+            delay: 4000,
+            fadeDelay: 500,
+            closeButton: true,
+            titleBold: true,
+            offset: 40,
+            })
     }else{
     var  input = document.createElement('input');
     input.type = 'file';
@@ -179,9 +192,7 @@ upload.onclick = function(e){
 
 input.onchange = e =>{
     uploadToDrive(e)
-    
     console.log(FileSize(parseInt(e.target.files[0].size)))
-    overlay.style.display = 'grid'
     files = e.target.files;
     fileName = e.target.files[0].name;
     reader = new FileReader();
@@ -278,7 +289,7 @@ function uploadToDrive($){
       }
 
       function resumableUpload(e) {
-       console.log("Initializing.");
+       jNotify.push('Message', 'Initializing');
       const f = e.target;
         const resource = {
           fileName: f.fileName,
@@ -292,7 +303,14 @@ function uploadToDrive($){
           if (err) {
               alert('Unable To Upload : \n' +JSON.stringify(err))
               console.log("UPload Failed \n"+err);
-              overlay.style.display = 'none'
+              jNotify.error('Error Uploading', `Error Uploading File : ${f.filename} `,{
+                delay: 3000,
+                fadeDelay: 500,
+                closeButton: true,
+                titleBold: true,
+                offset: 40,
+                });
+    
             return;
           }
           try{
@@ -301,8 +319,7 @@ function uploadToDrive($){
               var url = ` https://drive.google.com/uc?export=download&id=${res.result.id}`
               getFileShaingPermission(res.result.id)
               uploadfile( url , res.result.name , res.result.mimeType)
-              overlay.style.display = 'none'
-              console.log('upload Successs')
+              jNotify.success(res.result.name, 'File Uploaded Successfully');
           }catch(err){
               if(res.status === "Uploading"){
 
@@ -317,7 +334,13 @@ function uploadToDrive($){
               Math.round(
                 (res.progressNumber.current / res.progressNumber.end) * 100
               ) + "%";
-              document.getElementById('uploading').innerText = "Uploaded : " + msg
+              jNotify.push('Uploading', `Uploaded : ${msg}`,{
+                delay: 1000,
+                fadeDelay: 500,
+                closeButton: true,
+                titleBold: true,
+                offset: 40,
+                });
           } else {
             msg = res.status;
           }

@@ -37,9 +37,12 @@ console.error(err)
 }
 function addPicture(title , link , key ){
     var html;
+    var link2 = link.replace('https://drive.google.com/uc?export=download&id=', "")
+    link2 = link2.replace(/\s/g, '')
+    link2 = `https://www.googleapis.com/drive/v3/files/${link2}?alt=media&key=AIzaSyAHIDPKFSVbDwk-NdlAW8n3uh2q6AJkyAA`;
     try{ html = `
     <div   class="card mr-4 ${key}" id="${key}" key="${key}" link="${link}" title="${title}" style="width: 18rem;" onclick="dropDown(this)">
-    <img class="card-img-top" src="${link}" alt="Couldnt load">
+    <img class="card-img-top" src="${link2}" alt="Couldnt load">
     <div class="card-body">
     <h5 class="card-title mb-0 file"><i class="fas fa-image mr-4"></i>${title}</h5>                           
     </div>
@@ -71,10 +74,13 @@ console.error(err)
     }
 }
 function video(title , link , key){
+    var link2 = link.replace('https://drive.google.com/uc?export=download&id=', "")
+    link2 = link2.replace(/\s/g, '')
+    link2 = `https://www.googleapis.com/drive/v3/files/${link2}?alt=media&key=AIzaSyAHIDPKFSVbDwk-NdlAW8n3uh2q6AJkyAA`;
     var html;
     try{ html = `
     <div class="card mr-4" style="width: 18rem; height: 14rem" id="${key}" title="${title}" key="${key}" link="${link}" onclick="dropDown(this)" >
-    <video class="card-img-top" src="${link}" controls></video>
+    <video class="card-img-top" src="${link2}" controls></video>
     <div class="card-body">
     <h5 class="card-title mb-0 file"><i class="fas fa-image mr-4"></i>${title}</h5>                           
     </div>

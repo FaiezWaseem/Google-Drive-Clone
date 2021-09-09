@@ -33,7 +33,11 @@ firebase.database().ref('drive/'+uid+"/"+folder+'/'+key).once('value').then(func
      </div> `
          
      }else if (type.includes('.mp4')){
-         main.innerHTML += `<video src="${snapshot.val().file}" controls muted></video>`      
+         var link = snapshot.val().file
+        var link2 = link.replace('https://drive.google.com/uc?export=download&id=', "")
+        link2 = link2.replace(/\s/g, '')
+        link2 = `https://www.googleapis.com/drive/v3/files/${link2}?alt=media&key=AIzaSyAHIDPKFSVbDwk-NdlAW8n3uh2q6AJkyAA`;
+         main.innerHTML += `<video src="${link2}" controls muted></video>`      
      }else{
       
         main.innerHTML +=`<div class="card">

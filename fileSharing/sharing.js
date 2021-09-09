@@ -36,8 +36,31 @@ firebase.database().ref('drive/'+uid+"/"+folder+'/'+key).once('value').then(func
          var link = snapshot.val().file
         var link2 = link.replace('https://drive.google.com/uc?export=download&id=', "")
         link2 = link2.replace(/\s/g, '')
-        link2 = `https://www.googleapis.com/drive/v3/files/${link2}?alt=media&key=AIzaSyAHIDPKFSVbDwk-NdlAW8n3uh2q6AJkyAA`;
-         main.innerHTML += `<video src="${link2}" controls muted></video>`      
+        const vid_key = link2
+        link2 = `https://www.googleapis.com/drive/v3/files/${vid_key}?alt=media&key=AIzaSyAHIDPKFSVbDwk-NdlAW8n3uh2q6AJkyAA`;
+         main.innerHTML = `
+         <video 
+         id="my-video"
+         class="video-js"
+         controls
+         preload="auto"
+         width="640"
+         height="264"
+         poster="https://drive.google.com/thumbnail?id=${vid_key}"
+         data-setup="{}"
+         type="video/mp4"
+         src="${link2}"
+       >
+         <p class="vjs-no-js">
+           To view this video please enable JavaScript, and consider upgrading to a
+           web browser that
+           <a>supports HTML5 video</a
+           >
+         </p>
+         </video>
+         `
+         console.log(document.getElementById('my-video'))
+
      }else{
       
         main.innerHTML +=`<div class="card">

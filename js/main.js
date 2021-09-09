@@ -24,7 +24,7 @@ function addFolder(id, title){
     var html;
     try{
         html = `   
-         <div class="card mr-4" style="width: 18rem;" data-id="${id}" onclick="folderClick(this)">
+         <div class="card mr-4 p5" style="width: 21rem;" data-id="${id}" onclick="folderClick(this)">
         <div class="card-body">
         <h5 class="card-title mb-0 folder"><i class="fas fa-folder mr-4"></i>${title}</h5>
         </div>
@@ -41,7 +41,7 @@ function addPicture(title , link , key ){
     link2 = link2.replace(/\s/g, '')
     link2 = `https://www.googleapis.com/drive/v3/files/${link2}?alt=media&key=AIzaSyAHIDPKFSVbDwk-NdlAW8n3uh2q6AJkyAA`;
     try{ html = `
-    <div   class="card mr-4 ${key}" id="${key}" key="${key}" link="${link}" title="${title}" style="width: 18rem;" onclick="dropDown(this)">
+    <div   class="card mr-4 ${key}" id="${key}" key="${key}" link="${link}" title="${title}" style="width: 28%" onclick="dropDown(this)">
     <img class="card-img-top" src="${link2}" alt="Couldnt load">
     <div class="card-body">
     <h5 class="card-title mb-0 file"><i class="fas fa-image mr-4"></i>${title}</h5>                           
@@ -63,7 +63,7 @@ jNotify.error('Error', 'Something went wrong while loading a file',{
 function zipfile(title , link ,  key){
     var html;
     try{ html = `
-    <div class="card mr-4" style="width: 18rem; height: 6rem" id="${key}" title="${title}" key="${key}" link="${link}"  onclick="dropDown(this)">
+    <div class="card mr-4" style="width:28%; height: 6rem" id="${key}" title="${title}" key="${key}" link="${link}"  onclick="dropDown(this)">
     <div class="card-body">
     <h5 class="card-title mb-0 file"> <i class="fas fa-file-archive mr-4"></i></i>${title}</h5>                           
     </div>
@@ -79,7 +79,7 @@ function video(title , link , key){
     link2 = `https://www.googleapis.com/drive/v3/files/${link2}?alt=media&key=AIzaSyAHIDPKFSVbDwk-NdlAW8n3uh2q6AJkyAA`;
     var html;
     try{ html = `
-    <div class="card mr-4" style="width: 18rem; height: 14rem" id="${key}" title="${title}" key="${key}" link="${link}" onclick="dropDown(this)" >
+    <div class="card mr-4" style="width: 28%; height: 14rem" id="${key}" title="${title}" key="${key}" link="${link}" onclick="dropDown(this)" >
     <video class="card-img-top" src="${link2}" controls></video>
     <div class="card-body">
     <h5 class="card-title mb-0 file"><i class="fas fa-image mr-4"></i>${title}</h5>                           
@@ -194,11 +194,15 @@ upload.onclick = function(e){
     }else{
     var  input = document.createElement('input');
     input.type = 'file';
-   
+   input.multiple = "multiple"
 
 input.onchange = e =>{
-    uploadToDrive(e)
+    for(let x = 0 ; x < e.target.files.length ; x++){
+        uploadToDrive(e.target.files[x])
+    }
     console.log(FileSize(parseInt(e.target.files[0].size)))
+    console.log(e.target.files.length)
+    console.log(e.target.files)
     files = e.target.files;
     fileName = e.target.files[0].name;
     reader = new FileReader();
@@ -282,7 +286,7 @@ function uploadToDrive($){
      run($)
     
       function run(obj) {
-        const file = obj.target.files[0];
+        const file = obj;
         if (file.name != "") {
           let fr = new FileReader();
           fr.fileName = file.name;

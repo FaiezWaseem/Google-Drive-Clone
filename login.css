@@ -8,7 +8,35 @@ body {
   font-family: sans-serif;
   background: linear-gradient(#141e30, #243b55);
 }
-
+.Loading-Modal{
+  position: fixed;
+  background-color: rgba(41, 38, 38, 0.5);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  pointer-events: none;
+  transition: all 0.3s;
+  place-items: center;
+  display: none;
+}
+.Loading-Modal div{
+  width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2em;
+  background: white;
+  border-radius: 1%;
+  display: grid;
+  place-items: center;
+}
+.Loading-Modal div img{
+  width: 200px;
+  height: auto;
+}
 .login-box {
   position: absolute;
   top: 50%;

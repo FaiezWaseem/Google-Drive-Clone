@@ -26,9 +26,10 @@ function register(){
 
 function signIn(){
     if(inputValues()){
+        document.querySelector('.Loading-Modal').style.display = "block"
         const promise = auth.signInWithEmailAndPassword(email, pass);
-        promise.catch(e => alert(e.message));
-    }else{alert('please fill out all fields')}
+        promise.catch(e => {alert(e.message);document.querySelector('.Loading-Modal').style.display = "none"});
+    }else{alert('please fill out all fields');}
 }
 function SignOut(){
     auth.signOut();
@@ -69,3 +70,9 @@ auth.onAuthStateChanged(function(user){
         //no user is signed in
     }
 });
+window.addEventListener('keypress' , function(e){
+    if (e.keyCode == 13) {
+     console.log('enter Pressed')
+     signIn()
+    }
+})

@@ -77,9 +77,6 @@ cursor: pointer;
 .fa-image{
     color: #d93126;
 }
-#docs , #files{
-    flex-wrap: wrap;
-}
 .card{
     margin: 5px;
     overflow: hidden;
@@ -158,6 +155,9 @@ cursor: pointer;
       font-size: 2rem;
    display: none;
     }
+    #docs , #files{
+        flex-wrap: wrap;
+    }   
 @media screen and (max-width: 768px) {
     #left{
         height: 100%; /* 100% Full-height */
@@ -198,7 +198,12 @@ cursor: pointer;
 .fa-bars{
     font-size: 1em;
 }
-#docs{
-    flex-direction: column-reverse;
 }
+@media screen and (max-width: 540px){
+    #docs , #files{
+        flex-wrap: wrap;
+    }
+    #docs .card , #files .card{
+        width: 100% !important; 
+    }
 }

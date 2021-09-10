@@ -19,7 +19,7 @@ function get($){
     return document.querySelector($);
 }
 
-//----Componenets----------------//
+//-----------------Componenets----------------//
 function addFolder(id, title){
     var html;
     try{
@@ -171,7 +171,15 @@ function uploadfile(file , fname , type){
 function deleteFile($){
    const id = $.getAttribute('data-id')
    try{
-       firebase.database().ref('drive/'+uid+"/"+folder+"/").child(id).remove();
+       
+    firebase.database().ref('drive/'+uid+"/"+folder+"/"+id).once('value').then(function (snapshot) {
+           let link = snapshot.val().file
+            link = link.replace('https://drive.google.com/uc?export=download&id=', "")
+             link = link.replace(/\s/g, '')
+             deleteFileDrive(link)
+             firebase.database().ref('drive/'+uid+"/"+folder+"/").child(id).remove();
+    })
+        
        get(`#${id}`).style.display = "none"
        dropItemClicked()
    }catch(err){
@@ -179,7 +187,9 @@ function deleteFile($){
    }
     
 }
+//---------Component-----Finished-------------------//
 
+//-----------------Upload--------------------------//
 var upload = get('#upload')
 
 upload.onclick = function(e){
@@ -216,6 +226,7 @@ input.onchange = e =>{
 }
 
 var overlay = get('#overlay')
+//-----------DRIVE UPLOAD , DELETE  , GETSHARING ---------------------//
 // This method have file upload size limit max 20mb
 function uploadToDrive2(f , file){
     get('#overlay').style.display = 'grid'
@@ -358,6 +369,19 @@ function uploadToDrive($){
         });
       }
 }
+function deleteFileDrive(fileId) {
+    const id = 'AKfycbzZcpb8JjFW3h-njXJcHxGHKmg6570F9aL4ei13rJPWOJKH7zgpQA6940IxQwhkesAU'
+    const url = `https://script.google.com/macros/s/${id}/exec`; 
+    const qs = new URLSearchParams({id: fileId});
+    fetch(`${url}?${qs}`, {
+        method: "POST",
+         body: '' })
+           .then(res => res.json())
+           .then(e => {console.log(e)})
+           .catch(err =>{console.error(err)})
+  }
+
+//--------------------------------------------------------------------//  
 function dropDown($){
     const key = $.getAttribute('key')
     const link = $.getAttribute('link')

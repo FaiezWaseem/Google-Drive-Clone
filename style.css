@@ -103,7 +103,7 @@ cursor: pointer;
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 1;
+    z-index: 999;
     transition: all 0.3s;
     place-items: center;
     display: none;
@@ -158,11 +158,136 @@ cursor: pointer;
     #docs , #files{
         flex-wrap: wrap;
     }   
-@media screen and (max-width: 768px) {
+
+/* List Styling */
+.emailList {
+    flex: 1;
+    overflow: scroll;
+  }
+  
+  .emailList__settings {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid whitesmoke;
+    background-color: white;
+    padding: 8px;
+    z-index: 23;
+  }
+  
+  .emailList__settingsLeft {
+    display: flex;
+    align-items: center;
+  }
+  
+  .emailList__settings .material-icons {
+    margin: 5px;
+    cursor: pointer;
+  }
+  
+  .section {
+    display: flex;
+    align-items: center;
+    border-bottom-width: 2px;
+    padding: 15px;
+    min-width: 200px;
+    cursor: pointer;
+    color: grey;
+    border-width: 0;
+  }
+  
+  .emailList__sections {
+    position: sticky;
+    top: 0;
+    display: flex;
+    background-color: white;
+    border-bottom: 1px solid whitesmoke;
+    z-index: 999;
+  }
+  
+  .section__selected {
+    background-color: whitesmoke;
+    border-width: 3px;
+    color: red;
+    border-bottom: 3px solid red;
+  }
+  
+  .section__selected .material-icons {
+    color: red;
+  }
+  
+  .section:hover {
+    background-color: whitesmoke;
+    border-width: 3px;
+  }
+  
+  .section h4 {
+    font-size: 14px;
+    margin-left: 15px;
+  }
+  
+  .emailRow__options {
+    display: flex;
+    align-items: center;
+  }
+  
+  .emailRow__options .material-icons,
+  input {
+    margin: 5px;
+  }
+  
+  .emailRow {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    border-bottom: 1px solid whitesmoke;
+    cursor: pointer;
+    z-index: 999;
+  }
+  
+  .emailRow:hover {
+    border-top: 1px solid whitesmoke;
+    box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.24);
+  }
+  
+  .emailRow__message {
+    display: flex;
+    flex: 0.8;
+    align-items: center;
+    font-size: 13px;
+  }
+  
+  .emailRow__message h4 {
+    width: 400px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  
+  .emailRow__title {
+    font-size: 1.3rem;
+    flex: 1;
+    margin: 0px 20px;
+  }
+  
+  .emailRow__time {
+    padding-right: 15px;
+    font-size: 10px;
+    font-weight: bold;
+  }
+  
+  .emailRow__description {
+    font-weight: 400;
+    color: gray;
+  }
+  @media screen and (max-width: 768px) {
     #left{
         height: 100%; /* 100% Full-height */
         position: fixed; /* Stay in place */
-        z-index: 2; /* Stay on top */
+        z-index: 888; /* Stay on top */
         top: 0; /* Stay at the top */
         left: 0;
         background-color: #111; /* Black*/
@@ -205,5 +330,9 @@ cursor: pointer;
     }
     #docs .card , #files .card{
         width: 100% !important; 
+    }
+    .emailRow__title{
+        flex: 1;
+        font-size: 1rem;
     }
 }

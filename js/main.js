@@ -1,5 +1,5 @@
 const auth = firebase.auth();
-var uid , folder = null;
+var uid , folder = null, islist = false;
 var rand = Math.floor((Math.random() * 99999999999) + 1);
 //----------------user if loggined---------------------//
 auth.onAuthStateChanged(function(user){
@@ -20,6 +20,21 @@ function get($){
 }
 
 //-----------------Componenets----------------//
+function addFileList(title , link , key){
+    const list = document.querySelector('.emailList__list');
+    var link2 = link.replace('https://drive.google.com/uc?export=download&id=', "")
+    link2 = link2.replace(/\s/g, '')
+    link2 = `https://drive.google.com/thumbnail?id=`+link2;
+    list.innerHTML += `    <div class="emailRow ${key}" >
+    <div class="emailRow__options">
+      <input type="checkbox" name="checkbox" id="" data-id="${key}" link="${link}" />
+    </div>
+
+    <h3 class="emailRow__title" id="${key}" key="${key}" link="${link}" title="${title}"  onclick="dropDown(this)">${title}</h3>
+
+    <p class="emailRow__time">10pm</p>
+  </div>`
+}
 function addFolder(id, title){
     var html;
     try{
@@ -63,7 +78,7 @@ jNotify.error('Error', 'Something went wrong while loading a file',{
 function zipfile(title , link ,  key){
     var html;
     try{ html = `
-    <div class="card mr-4" style="width:28%; height: 6rem" id="${key}" title="${title}" key="${key}" link="${link}"  onclick="dropDown(this)">
+    <div class="card mr-4 ${key}" style="width:28%; height: 6rem" id="${key}" title="${title}" key="${key}" link="${link}"  onclick="dropDown(this)">
     <div class="card-body">
     <h5 class="card-title mb-0 file"> <i class="fas fa-file-archive mr-4"></i></i>${title}</h5>                           
     </div>
@@ -79,7 +94,7 @@ function video(title , link , key){
     link2 = `https://www.googleapis.com/drive/v3/files/${link2}?alt=media&key=AIzaSyAHIDPKFSVbDwk-NdlAW8n3uh2q6AJkyAA`;
     var html;
     try{ html = `
-    <div class="card mr-4" style="width: 28%; height: 14rem" id="${key}" title="${title}" key="${key}" link="${link}" onclick="dropDown(this)" >
+    <div class="card mr-4 ${key}" style="width: 28%; height: 14rem" id="${key}" title="${title}" key="${key}" link="${link}" onclick="dropDown(this)" >
     <video class="card-img-top" src="${link2}" controls></video>
     <div class="card-body">
     <h5 class="card-title mb-0 file"><i class="fas fa-image mr-4"></i>${title}</h5>                           
@@ -105,8 +120,17 @@ function folderClick($){
     addPage(id);
     folder = id
     LoadFiles(id)
-    get('#folder').style.display = "block"
+    const list_folder = document.getElementById('file_list');
+    const grid_folder = document.getElementById('folder');
     document.getElementById('main').style.display = "none"
+    if(islist){
+        list_folder.style.display = 'block'
+        grid_folder.style.display = 'none'
+    }else{
+        list_folder.style.display = 'none'
+        grid_folder.style.display = 'block'
+
+    }
 
 }
 function createFolder(){
@@ -132,12 +156,28 @@ function home(){
     folder = null
     document.getElementById('files').innerHTML = ""
     get('#folder').style.display = "none"
+    get('.emailList__list').style.display = "none"
     document.getElementById('main').style.display = "block"
     get('.breadcrumb').innerHTML = `  <li class="breadcrumb-item"><a  onclick="home()" style="cursor: pointer;">Home</a></li>`
 
 }
 function LoadFiles(fname){
     document.getElementById('files').innerHTML = ""
+  document.querySelector('.emailList__list').innerHTML = `    
+   <div class="emailList__settings">
+  <div class="emailList__settingsLeft">
+    <input type="checkbox" onchange="CheckBoxToggle(this)" />
+    <span class="material-icons"> arrow_drop_down </span>
+    <span class="material-icons"> redo </span>
+    <span class="material-icons"> more_vert </span>
+  </div>
+  <div class="emailList__settingsRight">
+    <span class="material-icons"> chevron_left </span>
+    <span class="material-icons"> chevron_right </span>
+    <span class="material-icons" onclick="DeleteMultipleFile()">delete_forever</span>
+    <span class="material-icons" onclick="DownloadMultipleFile()" >cloud_download</span>
+  </div>
+</div>`
     firebase.database().ref('drive/'+uid+"/"+fname).on('child_added' , function(snapshot){
    if(snapshot.key == "folder"){
 
@@ -145,15 +185,16 @@ function LoadFiles(fname){
        var type = snapshot.val().filename;
    if(type.includes('.png') ||type.includes('.PNG') || type.includes('.jpg') || type.includes('.gif')){
        addPicture(snapshot.val().filename , snapshot.val().file , snapshot.val().key)
+       addFileList(snapshot.val().filename , snapshot.val().file , snapshot.val().key)
     }else if (type.includes('.zip')){
         zipfile(snapshot.val().filename , snapshot.val().file, snapshot.val().key)
-        
+        addFileList(snapshot.val().filename , snapshot.val().file , snapshot.val().key)
     }else if (type.includes('.mp4')){
         video(snapshot.val().filename , snapshot.val().file, snapshot.val().key)
-        
+        addFileList(snapshot.val().filename , snapshot.val().file , snapshot.val().key)
     }else{
        zipfile(snapshot.val().filename , snapshot.val().file, snapshot.val().key)
-
+       addFileList(snapshot.val().filename , snapshot.val().file , snapshot.val().key)
    }
    }
    
@@ -180,12 +221,98 @@ function deleteFile($){
              firebase.database().ref('drive/'+uid+"/"+folder+"/").child(id).remove();
     })
         
-       get(`#${id}`).style.display = "none"
+    removeElementsByClass(`${id}`)
        dropItemClicked()
    }catch(err){
    alert(err)
    }
     
+}
+function listviewToggle(){
+    const list = document.getElementById('list')
+    const grid = document.getElementById('grid');
+    const list_folder = document.getElementById('file_list');
+    const grid_folder = document.getElementById('folder');
+    if(list.style.display === 'none'){
+        list.style.display = 'block'
+        grid.style.display = 'none'
+        islist = true;
+    }else{
+        islist = false;
+        list.style.display = 'none'
+        grid.style.display = 'block'
+    }
+    if(islist){
+        list_folder.style.display = 'block'
+        grid_folder.style.display = 'none'
+    }else{
+        list_folder.style.display = 'none'
+        grid_folder.style.display = 'block'
+
+    }
+}
+function removeElementsByClass(className){
+    const elements = document.getElementsByClassName(className);
+    while(elements.length > 0){
+        elements[0].parentNode.removeChild(elements[0]);
+    }
+}
+// Pass the checkbox name to the function
+function getCheckedBoxes(chkboxName) {
+    var checkboxes = document.getElementsByName(chkboxName);
+    var checkboxesChecked = [];
+    // loop over them all
+    for (var i=0; i<checkboxes.length; i++) {
+       // And stick the checked ones onto an array...
+       if (checkboxes[i].checked) {
+          checkboxesChecked.push(checkboxes[i]);
+       }
+    }
+    // Return the array if it is non-empty, or null
+    return checkboxesChecked.length > 0 ? checkboxesChecked : null;
+  }
+function uncheckAll(divid) {
+    var checks = document.querySelectorAll('#' + divid + ' input[type="checkbox"]');
+    for(var i =0; i< checks.length;i++){
+        var check = checks[i];
+        if(!check.disabled){
+            check.checked = false;
+        }
+    }
+}
+function checkAll(divid) {
+    var checks = document.querySelectorAll('#' + divid + ' input[type="checkbox"]');
+    for(var i =0; i< checks.length;i++){
+        var check = checks[i];
+        if(!check.disabled){
+            check.checked = true;
+        }
+    }
+}
+function CheckBoxToggle($){
+    if($.check == true){
+        uncheckAll('file_list')
+        $.check = false
+    }else{
+
+        checkAll('file_list') 
+        $.check = true 
+    }
+}
+function DeleteMultipleFile(){
+    let checkedbox =  getCheckedBoxes('checkbox')
+    checkedbox.forEach((checkbox) =>{
+        deleteFile(checkbox)
+    })
+}
+function DownloadMultipleFile(){
+    let checkedbox =  getCheckedBoxes('checkbox')
+    checkedbox.forEach((checkbox) =>{
+        let a = document.createElement('a')
+        a.href = checkbox.getAttribute('link')
+        a.click();
+        window.setTimeout(function(){},500)
+    })
 }
 //---------Component-----Finished-------------------//
 

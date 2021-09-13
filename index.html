@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Drive</title>
     <script src="https://kit.fontawesome.com/5e14d5d81a.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link rel="stylesheet" href="src/notify.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
@@ -29,6 +30,8 @@
                 <div class="d-flex justify-content-between align-items-center">
                     
                     <div class="d-flex align-items-center">
+                        <i id="list" class="fas fa-list" style="font: 1rem; margin: 0px 5px;cursor: pointer;display: none;" onclick="listviewToggle()"></i>
+                        <i id="grid" class="fas fa-th" style="font: 1rem; margin: 0px 5px;cursor: pointer;" onclick="listviewToggle()"></i>
                         <i class="fas fa-sign-out-alt" style="font: 1rem; margin: 0px 5px;cursor: pointer;"></i>
                         <a href="#"><img class="profile-img" src="img/profile-img.jpg" alt="profile-img"></a>
                         <i id="nav" class="fas fa-bars mr-3 ml-4" style="cursor: pointer;" onclick="openNav()"></i>
@@ -45,6 +48,7 @@
      <section>
          <div class="container-fluid">
             <div class="row">
+                <!-- Sidbar -->
                 <div class="col-2 p-4" id="left">
                     <div class="dropdown d-flex justify-content-center align-items-center mb-4" >
                         <button class="btn bg-white dropdown-toggle my-drive-btn font-weight-light" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -92,6 +96,7 @@
                     <label id="storage" class="m-4" style="color: #fff;">Storage</label>
                     
                 </div>
+                <!-- main -->
                 <div class="col-10 py-4" id="right">
 
                     <nav aria-label="breadcrumb">
@@ -120,10 +125,15 @@
                     </div>
 
                    <div class="d-flex" id="files" >
-
+                
                    </div>
 
                </div>
+               <div class="emailList__list" id="file_list" style="display: none;">
+                <!-- Email Row Starts -->
+
+<!-- Email Row Ends -->   
+      </div>
 
                 </div>
 

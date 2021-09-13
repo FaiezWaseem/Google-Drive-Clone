@@ -39,7 +39,7 @@ function addPicture(title , link , key ){
     var html;
     var link2 = link.replace('https://drive.google.com/uc?export=download&id=', "")
     link2 = link2.replace(/\s/g, '')
-    link2 = `https://www.googleapis.com/drive/v3/files/${link2}?alt=media&key=AIzaSyAHIDPKFSVbDwk-NdlAW8n3uh2q6AJkyAA`;
+    link2 = `https://drive.google.com/thumbnail?id=`+link2;
     try{ html = `
     <div   class="card mr-4 ${key}" id="${key}" key="${key}" link="${link}" title="${title}" style="width: 28%" onclick="dropDown(this)">
     <img class="card-img-top" src="${link2}" alt="Couldnt load">

@@ -196,7 +196,6 @@
     const doUpload = function(chunks, callback) {
       callback({ status: "start" }, null);
       const location = this.location;
-      console.log(location)
       const end = chunks.length;
       let cnt = 0;
       const doFetch = function(cnt) {

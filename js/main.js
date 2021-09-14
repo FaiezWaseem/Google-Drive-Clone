@@ -16,7 +16,7 @@ auth.onAuthStateChanged(function(user){
     }
 });
 function get($){
-    return document.querySelector($);
+return document.querySelector($);
 }
 
 //-----------------Componenets----------------//
@@ -242,7 +242,7 @@ function listviewToggle(){
         list.style.display = 'none'
         grid.style.display = 'block'
     }
-    if(!folder == null){
+    if(!(folder == null)){
         if(islist){
             list_folder.style.display = 'block'
             grid_folder.style.display = 'none'
@@ -340,9 +340,6 @@ input.onchange = e =>{
     for(let x = 0 ; x < e.target.files.length ; x++){
         uploadToDrive(e.target.files[x])
     }
-    console.log(FileSize(parseInt(e.target.files[0].size)))
-    console.log(e.target.files.length)
-    console.log(e.target.files)
     files = e.target.files;
     fileName = e.target.files[0].name;
     reader = new FileReader();
@@ -473,9 +470,6 @@ function uploadToDrive($){
               jNotify.success(res.result.name, 'File Uploaded Successfully');
           }catch(err){
               if(res.status === "Uploading"){
-
-                  console.log(res.progressByte.current)
-                  console.log(res.progressByte.total)
               }
      
           }

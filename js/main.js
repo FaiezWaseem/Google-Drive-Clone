@@ -242,14 +242,17 @@ function listviewToggle(){
         list.style.display = 'none'
         grid.style.display = 'block'
     }
-    if(islist){
-        list_folder.style.display = 'block'
-        grid_folder.style.display = 'none'
-    }else{
-        list_folder.style.display = 'none'
-        grid_folder.style.display = 'block'
-
+    if(!folder == null){
+        if(islist){
+            list_folder.style.display = 'block'
+            grid_folder.style.display = 'none'
+        }else{
+            list_folder.style.display = 'none'
+            grid_folder.style.display = 'block'
+    
+        }
     }
+
 }
 function removeElementsByClass(className){
     const elements = document.getElementsByClassName(className);

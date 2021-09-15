@@ -1,3 +1,6 @@
+.active{
+  border: 2px dashed teal;
+}
 a:hover{
     text-decoration: none;
 }
@@ -41,7 +44,7 @@ cursor: pointer;
 .fa-search{
     position: absolute;
     left: 0.8rem;
-    top: 0.8rem;
+    top: 1.2rem;
     color: #5f6368;
 }
 
@@ -184,6 +187,7 @@ cursor: pointer;
   .emailList__settings .material-icons {
     margin: 5px;
     cursor: pointer;
+    color: #000;
   }
   
   .section {
@@ -311,8 +315,8 @@ cursor: pointer;
         max-width: 100%;
     }
     .search-input{
-        width: 180px;
-        margin-right: 10px;
+        width: 150px;
+        margin-right: 0px;
     }
     #right{
         flex: 0 0 100%;
@@ -335,4 +339,28 @@ cursor: pointer;
         flex: 1;
         font-size: 1rem;
     }
+}
+/* Dark Mode */
+
+[data-theme="dark"] {
+  background-color: #111 !important;
+  color: #eee;
+}
+
+[data-theme="dark"] .bg-black {
+  background-color: #fff !important;
+}
+
+[data-theme="dark"] .bg-dark {
+  background-color: #eee !important;
+}
+.bg-light {
+  background-color: rgba(192, 189, 189, 0.6) !important;
+}
+/* [data-theme="dark"] .bg-light {
+  background-color: #222 !important;
+} */
+
+[data-theme="dark"] .bg-white {
+  background-color: #000 !important;
 }

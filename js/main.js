@@ -158,7 +158,7 @@ function home(){
     get('#folder').style.display = "none"
     get('.emailList__list').style.display = "none"
     document.getElementById('main').style.display = "block"
-    get('.breadcrumb').innerHTML = `  <li class="breadcrumb-item"><a  onclick="home()" style="cursor: pointer;">Home</a></li>`
+    get('.breadcrumb').innerHTML = `  <li class="breadcrumb-item"><a  onclick="home()" style="cursor: pointer;color: #000;">Home</a></li>`
 
 }
 function LoadFiles(fname){
@@ -311,10 +311,11 @@ function DeleteMultipleFile(){
 function DownloadMultipleFile(){
     let checkedbox =  getCheckedBoxes('checkbox')
     checkedbox.forEach((checkbox) =>{
-        let a = document.createElement('a')
-        a.href = checkbox.getAttribute('link')
-        a.click();
-        window.setTimeout(function(){},500)
+        window.setTimeout(function(){
+            let a = document.createElement('a')
+            a.href = checkbox.getAttribute('link')
+            a.click();
+        },500)
     })
 }
 //---------Component-----Finished-------------------//
@@ -571,3 +572,40 @@ function openNav() {
 get('.fa-sign-out-alt').onclick=()=>{
       auth.signOut();
   }
+
+ //---------file drag drop----------------//
+ //If user Drag File Over DropArea
+ var dropArea = get('#right');
+dropArea.addEventListener("dragover", (event)=>{
+    event.preventDefault(); //preventing from default behaviour
+    dropArea.classList.add("active");
+  });
+  
+  //If user leave dragged File from DropArea
+  dropArea.addEventListener("dragleave", ()=>{
+    dropArea.classList.remove("active");
+    
+  });
+  
+  //If user drop File on DropArea
+  dropArea.addEventListener("drop", (event)=>{
+    event.preventDefault(); //preventing from default behaviour
+    //getting user select file and [0] this means if user select multiple files then we'll select only the first one
+    if(folder == null){
+        dropArea.classList.remove("active");
+        jNotify.error('Error', 'Please Select a Folder',{
+            delay: 2000,
+            fadeDelay: 500,
+            closeButton: true,
+            titleBold: true,
+            offset: 40,
+            });
+    }else{
+        dropArea.classList.remove("active");
+        file = event.dataTransfer.files;
+        for(let x = 0 ; x < event.dataTransfer.files.length ; x++){
+            uploadToDrive(event.dataTransfer.files[x])
+        }
+       console.log(file)
+    }
+  }); 

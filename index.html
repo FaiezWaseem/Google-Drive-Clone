@@ -30,6 +30,10 @@
                 <div class="d-flex justify-content-between align-items-center">
                     
                     <div class="d-flex align-items-center">
+                        <div class="form-check form-switch" style="width:max-content">
+                            <input type="checkbox" class="form-check-input" id="darkSwitch">
+                            <label class="custom-control-label" for="darkSwitch">Dark Mode</label>
+                          </div>
                         <i id="list" class="fas fa-list" style="font: 1rem; margin: 0px 5px;cursor: pointer;display: none;" onclick="listviewToggle()"></i>
                         <i id="grid" class="fas fa-th" style="font: 1rem; margin: 0px 5px;cursor: pointer;" onclick="listviewToggle()"></i>
                         <i class="fas fa-sign-out-alt" style="font: 1rem; margin: 0px 5px;cursor: pointer;"></i>
@@ -51,7 +55,7 @@
                 <!-- Sidbar -->
                 <div class="col-2 p-4" id="left">
                     <div class="dropdown d-flex justify-content-center align-items-center mb-4" >
-                        <button class="btn bg-white dropdown-toggle my-drive-btn font-weight-light" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn bg-light dropdown-toggle my-drive-btn font-weight-light" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             My Drive
                         </button>
                         <i class="far fa-times-circle"  id="nav-close"></i>
@@ -101,7 +105,7 @@
 
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                          <li class="breadcrumb-item"><a  onclick="home()" style="cursor: pointer;">Home</a></li>
+                          <li class="breadcrumb-item"><a  onclick="home()" style="cursor: pointer;color: #000;">Home</a></li>
                        
                           
                         </ol>
@@ -185,6 +189,7 @@
                    <!-- CONGIG -->
                    <script src="./js/config.js"></script>
                    <!-- Main file -->
+                   <script src="./js/dark-mode-switch.min.js"></script>
                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="src/notify.js"></script>
                    <script src="./js/main.js"></script>

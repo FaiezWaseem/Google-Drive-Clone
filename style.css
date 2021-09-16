@@ -341,10 +341,15 @@ cursor: pointer;
     }
 }
 /* Dark Mode */
-
+ :root{
+  --primary-color: #2c2c2c;
+  --color-body: #494242;
+  --color-text: #f3f3f3;
+  --btn-cta-shadow: rgba(255, 255, 255, 0.9);
+ }
 [data-theme="dark"] {
-  background-color: #1c1c1c !important;
-  color: #eee;
+  background-color: var(--primary-color) !important;
+  color: var(--color-text);
   transition: all 1s ease-in;
 }
 
@@ -367,6 +372,19 @@ cursor: pointer;
 
 [data-theme="dark"] .bg-white {
   background-color: #1c1c1c !important;
+  transition: all 1s ease-in;
+}
+[data-theme="dark"] .card {
+  background-color: #1c1c1c !important;
+  transition: all 1s ease-in;
+}
+[data-theme="dark"] .card:hover {
+  background: var(--color-body) !important;
+  box-shadow: var(--btn-cta-shadow) !important;
+  transition: all 0.1s ease-in;
+}
+[data-theme="dark"] .card h5 ,[data-theme="dark"] .emailRow__title {
+  color: var(--color-text) !important;
   transition: all 1s ease-in;
 }
 .switch {

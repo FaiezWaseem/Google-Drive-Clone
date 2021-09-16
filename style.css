@@ -347,7 +347,7 @@ cursor: pointer;
   --color-text: #f3f3f3;
   --btn-cta-shadow: rgba(255, 255, 255, 0.9);
  }
-[data-theme="dark"] {
+[data-theme="dark"]  ,[data-theme="dark"] .emailList__settings .material-icons{
   background-color: var(--primary-color) !important;
   color: var(--color-text);
   transition: all 1s ease-in;
@@ -366,19 +366,29 @@ cursor: pointer;
   background-color: #eee !important;
   transition: all 1s ease-in;
 }
-/* [data-theme="dark"] .bg-light {
-  background-color: #222 !important;
-} */
+ [data-theme="dark"] .emailList__settings {
+  background-color: #2c2c2c !important;
+} 
 
 [data-theme="dark"] .bg-white {
   background-color: #1c1c1c !important;
   transition: all 1s ease-in;
 }
-[data-theme="dark"] .card {
+[data-theme="dark"] .card , [data-theme="dark"] .content {
   background-color: #1c1c1c !important;
   transition: all 1s ease-in;
 }
 [data-theme="dark"] .card:hover {
+  background: var(--color-body) !important;
+  box-shadow: var(--btn-cta-shadow) !important;
+  transition: all 0.1s ease-in;
+}
+[data-theme="dark"] .dropdown-item:focus, .dropdown-item:hover {
+  background: var(--color-body) !important;
+  box-shadow: var(--btn-cta-shadow) !important;
+  transition: all 0.1s ease-in;
+}
+[data-theme="dark"] .emailRow:hover {
   background: var(--color-body) !important;
   box-shadow: var(--btn-cta-shadow) !important;
   transition: all 0.1s ease-in;

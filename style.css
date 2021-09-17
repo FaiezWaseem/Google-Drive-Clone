@@ -1,3 +1,107 @@
+
+/*  */
+#right-sidebar{
+  
+  position:absolute;
+  top:0;
+  right:0;
+  width: 20%;
+  height:100%;
+  background: #fff;
+  z-index: 2000;
+  border-left: 1px solid rgba(0, 0, 0, 0.12);
+  color: rgb(80, 93, 104);
+  word-wrap: break-word;
+  display: none;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  transition: transform 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  overflow-y: scroll;
+}
+#right-sidebar div{
+  margin: 5px 5px;
+  word-wrap: break-word;
+  width: 90%;
+}
+#right-sidebar div h4{
+ color: #505D68;
+ font-weight: 600;
+ word-wrap: break-word;
+}
+#right-sidebar div h5{
+  color: #505D68;
+  font-weight: 200;
+  word-wrap: break-word;
+ }
+ .buttons{
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   flex-direction: column;
+ }
+#button-download{
+  margin-bottom: 10px;
+  fill: white;
+  color: white;
+  font-size: 16px;
+  width: 200px;
+  min-width: 100px;
+  min-height: 36px;
+  font-weight: 500;
+  line-height: 1.14;
+  padding-left: 20.5px;
+  padding-right: 20.5px;
+  letter-spacing: 1.25px;
+  background-color: rgb(70, 111, 182);
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+#button-Delete{
+  fill: white;
+  color: white;
+  font-size: 16px;
+  width: 200px;
+  min-width: 100px;
+  min-height: 36px;
+  font-weight: 500;
+  line-height: 1.14;
+  padding-left: 20.5px;
+  padding-right: 20.5px;
+  letter-spacing: 1.25px;
+  background-color: rgb(253, 36, 36);
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+#button-copy{
+  fill: rgb(70, 111, 182);
+  color: rgb(70, 111, 182);
+  width: 200px;
+  font-size: 16px;
+  min-width: 100px;
+  min-height: 36px;
+  font-weight: 500;
+  line-height: 1.14;
+  border-color: rgb(70, 111, 182);
+  padding-left: 20.5px;
+  padding-right: 20.5px;
+  letter-spacing: 1.25px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 3px;
+}
+.options{
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  padding-bottom: 10px;
+}
+.options i{
+ font-size: 2rem;
+}
 .active{
   border: 2px dashed teal;
 }
@@ -327,6 +431,9 @@ cursor: pointer;
 .fa-bars{
     font-size: 1em;
 }
+#right-sidebar{
+  width: 35% !important;
+}
 }
 @media screen and (max-width: 540px){
     #docs , #files{
@@ -338,6 +445,9 @@ cursor: pointer;
     .emailRow__title{
         flex: 1;
         font-size: 1rem;
+    }
+    #right-sidebar{
+      width: 60% !important;
     }
 }
 /* Dark Mode */

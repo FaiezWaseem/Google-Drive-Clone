@@ -10,19 +10,18 @@ function getParam ()
 }
 var url = getParam();
 const key = atob(url.key);
-const uid = atob(url.uid);
-const folder = url.folder;
 var download_url;
 const main = document.querySelector('.main')
-firebase.database().ref('drive/'+uid+"/"+folder+'/'+key).once('value').then(function (snapshot) {
-   document.querySelector('#title').innerText = snapshot.val().filename;
-   download_url = snapshot.val().file;
+firebase.database().ref(`sharing/${key}`).once('value').then(function (snapshot) {
+    if(snapshot.exists()){
+   document.querySelector('#title').innerText = snapshot.val().title;
+   download_url = snapshot.val().download;
    document.querySelector('#download').href = download_url;
-    const fname = snapshot.val().filename;
+    const fname = snapshot.val().title;
     if(snapshot.key == "folder"){
  
     }else{
-        var type = snapshot.val().filename;
+        var type = snapshot.val().title;
     if(type.includes('.png') ||type.includes('.PNG') || type.includes('.jpg') || type.includes('.gif')){
         main.innerHTML +=`<img src="${snapshot.val().file}" alt="not found">`
         
@@ -68,6 +67,14 @@ firebase.database().ref('drive/'+uid+"/"+folder+'/'+key).once('value').then(func
         <h1>${fname}</h1>
     </div> `
     }
+    
+}
+}else{
+    main.innerHTML +=`<div class="card">
+    <i class="fas fa-file-archive"></i>
+    <h1 style="color : red !important">File not Found </h1>
+</div> ` 
+document.querySelector('#download').disable = true
 }
 })
 function goback(){window.location.replace("../index.html");}

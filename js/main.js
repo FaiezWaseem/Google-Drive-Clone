@@ -20,7 +20,7 @@ return document.querySelector($);
 }
 
 //-----------------Componenets----------------//
-function addFileList(title , link , key){
+function addFileList(title , link , key , date , share , size){
     const list = document.querySelector('.emailList__list');
     var link2 = link.replace('https://drive.google.com/uc?export=download&id=', "")
     link2 = link2.replace(/\s/g, '')
@@ -30,7 +30,7 @@ function addFileList(title , link , key){
       <input type="checkbox" name="checkbox" id="" data-id="${key}" link="${link}" />
     </div>
 
-    <h3 class="emailRow__title" id="${key}" key="${key}" link="${link}" title="${title}"  onclick="dropDown(this)">${title}</h3>
+    <h3 class="emailRow__title" id="${key}" size="${size}" date="${date}" share=${share} key="${key}" link="${link}" title="${title}"  onclick="dropDown(this)">${title}</h3>
 
     <p class="emailRow__time">10pm</p>
   </div>`
@@ -50,13 +50,13 @@ console.error(err)
     }
 
 }
-function addPicture(title , link , key ){
+function addPicture(title , link , key , date , share,size){
     var html;
     var link2 = link.replace('https://drive.google.com/uc?export=download&id=', "")
     link2 = link2.replace(/\s/g, '')
     link2 = `https://drive.google.com/thumbnail?id=`+link2;
     try{ html = `
-    <div   class="card mr-4 ${key}" id="${key}" key="${key}" link="${link}" title="${title}" style="width: 28%" onclick="dropDown(this)">
+    <div   date="${date}" size="${size}" share=${share} class="card mr-4 ${key}" id="${key}" key="${key}" link="${link}" title="${title}" style="width: 28%" onclick="dropDown(this)">
     <img class="card-img-top" src="${link2}" alt="Couldnt load">
     <div class="card-body">
     <h5 class="card-title mb-0 file"><i class="fas fa-image mr-4"></i>${title}</h5>                           
@@ -75,10 +75,10 @@ jNotify.error('Error', 'Something went wrong while loading a file',{
     });
     }
 }
-function zipfile(title , link ,  key){
+function zipfile(title , link ,  key , date , share , size){
     var html;
     try{ html = `
-    <div class="card mr-4 ${key}" style="width:28%; height: 6rem" id="${key}" title="${title}" key="${key}" link="${link}"  onclick="dropDown(this)">
+    <div class="card mr-4 ${key}" size="${size}" date="${date}" share=${share} style="width:28%; height: 6rem" id="${key}" title="${title}" key="${key}" link="${link}"  onclick="dropDown(this)">
     <div class="card-body">
     <h5 class="card-title mb-0 file"> <i class="fas fa-file-archive mr-4"></i></i>${title}</h5>                           
     </div>
@@ -88,13 +88,13 @@ function zipfile(title , link ,  key){
 console.error(err)
     }
 }
-function video(title , link , key){
+function video(title , link , key , date , share, size){
     var link2 = link.replace('https://drive.google.com/uc?export=download&id=', "")
     link2 = link2.replace(/\s/g, '')
     link2 = `https://www.googleapis.com/drive/v3/files/${link2}?alt=media&key=AIzaSyAHIDPKFSVbDwk-NdlAW8n3uh2q6AJkyAA`;
     var html;
     try{ html = `
-    <div class="card mr-4 ${key}" style="width: 28%; height: 14rem" id="${key}" title="${title}" key="${key}" link="${link}" onclick="dropDown(this)" >
+    <div class="card mr-4 ${key}" size="${size}" date="${date}" share=${share} style="width: 28%; height: 14rem" id="${key}" title="${title}" key="${key}" link="${link}" onclick="dropDown(this)" >
     <video class="card-img-top" src="${link2}" controls></video>
     <div class="card-body">
     <h5 class="card-title mb-0 file"><i class="fas fa-image mr-4"></i>${title}</h5>                           
@@ -184,29 +184,34 @@ function LoadFiles(fname){
    }else{
        var type = snapshot.val().filename;
    if(type.includes('.png') ||type.includes('.PNG') || type.includes('.jpg') || type.includes('.gif')){
-       addPicture(snapshot.val().filename , snapshot.val().file , snapshot.val().key)
-       addFileList(snapshot.val().filename , snapshot.val().file , snapshot.val().key)
+       addPicture(snapshot.val().filename , snapshot.val().file , snapshot.val().key, snapshot.val().date , snapshot.val().share  , snapshot.val().size )
+       addFileList(snapshot.val().filename , snapshot.val().file , snapshot.val().key, snapshot.val().date , snapshot.val().share , snapshot.val().size)
     }else if (type.includes('.zip')){
-        zipfile(snapshot.val().filename , snapshot.val().file, snapshot.val().key)
-        addFileList(snapshot.val().filename , snapshot.val().file , snapshot.val().key)
+        zipfile(snapshot.val().filename , snapshot.val().file, snapshot.val().key, snapshot.val().date , snapshot.val().share , snapshot.val().size)
+        addFileList(snapshot.val().filename , snapshot.val().file , snapshot.val().key, snapshot.val().date , snapshot.val().share , snapshot.val().size)
     }else if (type.includes('.mp4')){
-        video(snapshot.val().filename , snapshot.val().file, snapshot.val().key)
-        addFileList(snapshot.val().filename , snapshot.val().file , snapshot.val().key)
+        video(snapshot.val().filename , snapshot.val().file, snapshot.val().key, snapshot.val().date , snapshot.val().share , snapshot.val().size)
+        addFileList(snapshot.val().filename , snapshot.val().file , snapshot.val().key, snapshot.val().date , snapshot.val().share , snapshot.val().size)
     }else{
-       zipfile(snapshot.val().filename , snapshot.val().file, snapshot.val().key)
-       addFileList(snapshot.val().filename , snapshot.val().file , snapshot.val().key)
+       zipfile(snapshot.val().filename , snapshot.val().file, snapshot.val().key, snapshot.val().date , snapshot.val().share , snapshot.val().size)
+       addFileList(snapshot.val().filename , snapshot.val().file , snapshot.val().key , snapshot.val().date , snapshot.val().share , snapshot.val().size)
    }
    }
    
     })
 }
-function uploadfile(file , fname , type){  
+function uploadfile(file , fname , type , size){  
+    const d = new Date();
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var newPostKey = firebase.database().ref().child('drive').push().key;
     firebase.database().ref("drive/"+uid+"/"+folder+"/"+newPostKey).set({ 
         "file": file ,
         "filename": fname,
          "type": type,
-         'key': newPostKey
+         'key': newPostKey,
+         'date': d.getDay() + '/'+months[d.getMonth()] +'/'+ d.getFullYear(),
+         'size': size,
+         'share': false
     });
 }
 function deleteFile($){
@@ -369,7 +374,7 @@ function uploadToDrive2(f , file){
     .then(e => {
         get('#overlay').style.display = 'none'
         var url = ` https://drive.google.com/uc?export=download&id=${e.fileId}`
-        uploadfile( url , file.name , file.type)
+        uploadfile( url , file.name , file.type, file.size)
     })
     .catch(err =>{
         get('#overlay').style.display = 'none'
@@ -467,11 +472,14 @@ function uploadToDrive($){
             
               var url = ` https://drive.google.com/uc?export=download&id=${res.result.id}`
               getFileShaingPermission(res.result.id)
-              uploadfile( url , res.result.name , res.result.mimeType)
+              uploadfile( url , res.result.name , res.result.mimeType ,FileSize($.size))
               jNotify.success(res.result.name, 'File Uploaded Successfully');
           }catch(err){
               if(res.status === "Uploading"){
+              }else{
+                  console.log(err)
               }
+
      
           }
           let msg = "";
@@ -511,19 +519,93 @@ function dropDown($){
     const key = $.getAttribute('key')
     const link = $.getAttribute('link')
     const title = $.getAttribute('title')
-    const dropdown = get('.Loading-Modal')
-   const param = `?key=${btoa(key)}&uid=${btoa(uid)}&folder=${folder}`
-    dropdown.style.display = 'grid'
-    get('#delete').setAttribute("data-id", key);
-    get('#download').setAttribute("href", link);
+    const date = $.getAttribute('date')
+    const share = $.getAttribute('share')
+    const size = $.getAttribute('size')
+    const dropdown = get('#right-sidebar')
+    var linkfile;
+   const param = `?key=${btoa(key)}`
+   linkfile ='https://faiezwaseem.github.io/Google-Drive-Clone/fileSharing/' + param
+    dropdown.style.display = 'flex'
+    get('#button-Delete').setAttribute("data-id", key);
+    console.log(date)
+    get('#date').textContent = date
+    get('#size').textContent = size
+    get('#button-download').onclick= ()=>{
+        let a = document.createElement('a')
+            a.href = link
+            a.click();
+    }
+    get('#view').setAttribute("data-id", key);
     get('#title-option').textContent = title ;
-    get('#title-option').innerHTML += `<i class="far fa-times-circle" onclick="dropItemClicked()">` ;
+   get('#button-copy').onclick=() => { copytext(linkfile) };
+   if(share == 'false'){
+    get('#view').checked = false
+    get(`.${key}`).setAttribute('share','false')
+}else{
+    get(`.${key}`).setAttribute('share','true')
+       get('#view').checked = true
+   }
 
-   get('#sharelink').onclick=() => { copytext('https://faiezwaseem.github.io/Google-Drive-Clone/fileSharing/' + param) };
 }
 function dropItemClicked(){
-    get('.Loading-Modal').style.display = 'none' 
+    get('#right-sidebar').style.display = 'none' 
 }
+const switchSharing = get('#view')
+switchSharing.addEventListener('click',function(){
+    const id = get('#view').getAttribute('data-id');
+    console.log(id)
+    if(id === null){
+        jNotify.error('Id Null','Coundnt process');
+        console.log('id null')
+        switchSharing.checked = false
+    }else{
+        if(switchSharing.checked){
+  console.log('Make file public')
+  setfileSharing(id);
+}else{
+     console.log('Make file private')
+        removefilesharing(id)
+        }
+    }
+})
+
+function setfileSharing(id){
+
+try{
+    firebase.database().ref(`drive/${uid}/${folder}/${id}`).once('value').then(function (snapshot) {
+      if(snapshot.exists()){
+          const url = snapshot.val().file;
+          const title = snapshot.val().filename
+        firebase.database().ref('sharing/'+id).set({
+            download : url ,
+            title : title
+        })
+        firebase.database().ref(`drive/${uid}/${folder}/${id}`).update({
+            "share" : true
+        });
+      }else{
+          console.warn('file not exist')
+      }
+    
+      })
+ 
+}catch(err){
+console.log(err)
+}
+}
+function removefilesharing(id){
+    try{
+        firebase.database().ref(`sharing`).child(id).remove();
+        firebase.database().ref(`drive/${uid}/${folder}/${id}`).update({
+            "share" : false
+        });
+    }catch(err){
+    console.log(err)
+    }
+}
+
+
 var _x = 0
 function openNav() {
     document.getElementById("left").classList.remove("col-2");
@@ -571,6 +653,9 @@ function openNav() {
   }
 get('.fa-sign-out-alt').onclick=()=>{
       auth.signOut();
+  }
+  get('#sidebar-close').onclick=()=>{
+      get('#right-sidebar').style.display = 'none'
   }
 
  //---------file drag drop----------------//

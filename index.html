@@ -154,22 +154,43 @@
         <div class="loader"></div>
      </div>
 
-
-<div class="Loading-Modal">
-    <div>
-        <div class="top">
-            <i class="fas fa-times-circle"></i>
-        </div>
-        <div class="content">
-            <ul >
-                <h5 id="title-option">File Options <i class="far fa-times-circle" onclick="dropItemClicked()"></i></h5>
-                <a class="dropdown-item" id="view" >View</a>
-                <a class="dropdown-item" id="download" href="null" onclick="dropItemClicked()">Download</a>
-                <a class="dropdown-item" id="sharelink">Get Link</a>
-                <a class="dropdown-item" id="delete" data-id="null" onclick="deleteFile(this)">Delete</a>
-              </ul>
-        </div>
+<!-- Right Sidebar -->
+<div id="right-sidebar"> 
+    <div class="options">
+        <h2>Options</h2>
+        <i class="fas fa-times" id="sidebar-close"></i>
     </div>
+    <hr>
+    <div class="filename">
+        <h4>File Name</h4>
+        <h5 id="title-option">xyx.mp4</h5>
+    </div>
+    <div class="size">
+        <h4>File Size</h4>
+        <h5 id="size">29.4 MB</h4>
+    </div>
+    <div class="modified">
+        <h4>File Uploaded on:</h4>
+        <h5 id="date">3/4/21</h4>
+    </div>
+    <div class="share">
+        <h4>File Share:</h4>
+        <label class="switch">
+            public
+            <input type="checkbox"  id="view" >
+            <span class="slider round"></span>
+          </label>
+    </div>
+    <hr>
+    <div class="buttons">
+        <button id="button-download">Download File</button>
+        <button id="button-Delete" onclick="deleteFile(this)">Delete File </button>
+    </div>
+    <div class="buttons">
+        <button id="button-copy">Copy Link</button>
+    </div>
+
+
 </div>
 
 

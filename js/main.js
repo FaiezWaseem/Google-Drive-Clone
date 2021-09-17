@@ -584,7 +584,9 @@ try{
         firebase.database().ref(`drive/${uid}/${folder}/${id}`).update({
             "share" : true
         });
-      }else{
+        get(`.${id}`).setAttribute('share','true')
+    }else{
+         
           console.warn('file not exist')
       }
     
@@ -600,6 +602,7 @@ function removefilesharing(id){
         firebase.database().ref(`drive/${uid}/${folder}/${id}`).update({
             "share" : false
         });
+        get(`.${id}`).setAttribute('share','false')
     }catch(err){
     console.log(err)
     }

@@ -22,8 +22,8 @@ firebase.database().ref(`sharing/${key}`).once('value').then(function (snapshot)
  
     }else{
         var type = snapshot.val().title;
-    if(type.includes('.png') ||type.includes('.PNG') || type.includes('.jpg') || type.includes('.gif')){
-        main.innerHTML +=`<img src="${snapshot.val().file}" alt="not found">`
+    if(type.includes('.png') ||type.includes('.PNG') || type.includes('.jpg') ||  type.includes('.jpeg') || type.includes('.gif')){
+        main.innerHTML +=`<img src="${snapshot.val().download}" alt="not found">`
         
      }else if (type.includes('.zip')){
          main.innerHTML +=`<div class="card">
@@ -32,11 +32,11 @@ firebase.database().ref(`sharing/${key}`).once('value').then(function (snapshot)
      </div> `
          
      }else if (type.includes('.mp4')){
-         var link = snapshot.val().file
+         var link = snapshot.val().download
         var link2 = link.replace('https://drive.google.com/uc?export=download&id=', "")
         link2 = link2.replace(/\s/g, '')
         const vid_key = link2
-        link2 = `https://drive.google.com/thumbnail?id=`+link2;
+        link2 =  `https://www.googleapis.com/drive/v3/files/${vid_key}?alt=media&key=AIzaSyAHIDPKFSVbDwk-NdlAW8n3uh2q6AJkyAA`
          main.innerHTML = `
          <video 
          id="my-video"

@@ -57,7 +57,7 @@ function addPicture(title , link , key , date , share,size){
     link2 = `https://drive.google.com/thumbnail?id=`+link2;
     try{ html = `
     <div   date="${date}" size="${size}" share=${share} class="card mr-4 ${key}" id="${key}" key="${key}" link="${link}" title="${title}" style="width: 28%" onclick="dropDown(this)">
-    <img class="card-img-top" src="${link2}" alt="Couldnt load">
+    <img class="card-img-top" src="${link2}" loading="lazy" alt="Couldnt load">
     <div class="card-body">
     <h5 class="card-title mb-0 file"><i class="fas fa-image mr-4"></i>${title}</h5>                           
     </div>
@@ -90,12 +90,12 @@ console.error(err)
 }
 function video(title , link , key , date , share, size){
     var link2 = link.replace('https://drive.google.com/uc?export=download&id=', "")
-    link2 = link2.replace(/\s/g, '')
-    link2 = `https://www.googleapis.com/drive/v3/files/${link2}?alt=media&key=AIzaSyAHIDPKFSVbDwk-NdlAW8n3uh2q6AJkyAA`;
+    const id = link2.replace(/\s/g, '')
+    link2 = `https://www.googleapis.com/drive/v3/files/${id}?alt=media&key=AIzaSyAHIDPKFSVbDwk-NdlAW8n3uh2q6AJkyAA`;
     var html;
     try{ html = `
     <div class="card mr-4 ${key}" size="${size}" date="${date}" share=${share} style="width: 28%; height: 14rem" id="${key}" title="${title}" key="${key}" link="${link}" onclick="dropDown(this)" >
-    <video class="card-img-top" src="${link2}" controls></video>
+    <video class="card-img-top" poster="https://drive.google.com/thumbnail?id=${id}" src="${link2}" controls></video>
     <div class="card-body">
     <h5 class="card-title mb-0 file"><i class="fas fa-image mr-4"></i>${title}</h5>                           
     </div>
@@ -404,19 +404,19 @@ function getAccessToken(){
 }
 function getFileShaingPermission(fid){
     
-    const id = 'AKfycbyb3Z3EwstJO5cKa8k5cIMglSRo4kg2mf1VVDdL8-evCQ4M063HPLUlw_L7f9S2JE4'
+    const id = 'AKfycbzKN-K_pAw-Vmg_36AY32hWLOZtrkXJwxNKkE07pQ69k7Re1_RoWzlmCK1bKTBfcLB5'
     const url = `https://script.google.com/macros/s/${id}/exec`; 
-    const qs = new URLSearchParams({id: fid});
+    const qs = new URLSearchParams({id: fid, title : uid});
     fetch(`${url}?${qs}`, {
         method: "POST",
-         body: '' })
+         body: 'xx' })
            .then(res => res.json())
            .then(e => {
              console.log(e)
            })
            .catch(err =>{
            
-                console.log(err)
+                console.warn(err)
            
            })
 }
@@ -477,7 +477,7 @@ function uploadToDrive($){
           }catch(err){
               if(res.status === "Uploading"){
               }else{
-                  console.log(err)
+
               }
 
      

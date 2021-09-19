@@ -108,14 +108,17 @@
 a:hover{
     text-decoration: none;
 }
-
+#right{
+  overflow-y: scroll;
+  height: 84vh;
+}
 .profile-img{
     border-radius: 50%;
     width: 2rem;
 }
 .search-input{
     background-color: #f1f3f4;
-    width: 35rem;
+    width: 100%;
     padding: 0.6rem 2.5rem;
     border-radius: 0.4rem;
     border: none;
@@ -391,6 +394,23 @@ cursor: pointer;
     font-weight: 400;
     color: gray;
   }
+  .card img, .card video{
+    height: 220px !important;
+    overflow: hidden;
+  }
+  @media screen and (min-width: 1048px){
+    .card{
+      width: 30% !important;
+    }
+  }
+  @media screen and (min-width: 1668px){
+    .card{
+      width: 23% !important;
+    }
+    .card-body{
+      padding: 1.6rem;
+    }
+  }
   @media screen and (max-width: 768px) {
     #left{
         height: 100%; /* 100% Full-height */
@@ -402,6 +422,9 @@ cursor: pointer;
         overflow-x: hidden; /* Disable horizontal scroll */
         padding-top: 60px; /* Place content 60px from the top */
         transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    }
+    .card{
+      width: 45% !important;
     }
     .col-2{
         flex: 0 0 60%;
@@ -419,10 +442,11 @@ cursor: pointer;
         max-width: 100%;
     }
     .search-input{
-        width: 80px;
+        width: 100%;
         margin-right: 0px;
     }
-    #right{
+    
+    #right , #top-left{
         flex: 0 0 100%;
         max-width: 100%;
     }
@@ -435,7 +459,7 @@ cursor: pointer;
   width: 35% !important;
 }
 }
-@media screen and (max-width: 540px){
+@media screen and (max-width: 600px){
     #docs , #files{
         flex-wrap: wrap;
     }
@@ -448,6 +472,9 @@ cursor: pointer;
     }
     #right-sidebar{
       width: 60% !important;
+    }
+    .p-4{
+      padding: .7rem !important;
     }
 }
 /* Dark Mode */

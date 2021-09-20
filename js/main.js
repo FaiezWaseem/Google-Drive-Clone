@@ -136,7 +136,7 @@ function folderClick($){
     get('#right-sidebar').style.display = 'none'
     try{
     var id = $.getAttribute('data-id')
-    addPage(document.querySelector(`.${id} h5`).innerText);
+    addPage(get(`.${id} h5`).innerText);
     folder = id
     LoadFiles(id)
     const list_folder = document.getElementById('file_list');
@@ -150,7 +150,9 @@ function folderClick($){
         grid_folder.style.display = 'block'
 
     }
-}catch(err){}
+}catch(err){
+    console.log(err)
+}
 }
 function createFolder(){
 const foldername = prompt('Enter Folder Name')

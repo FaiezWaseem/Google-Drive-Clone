@@ -29,15 +29,9 @@
 
                 <div class="d-flex justify-content-between align-items-center">
                     
-                    <div class="d-flex align-items-center">
-                        <label class="switch">
-                            <input type="checkbox"  id="darkSwitch">
-                            <span class="slider round"></span>
-                          </label>
-                         
+                    <div class="d-flex align-items-center">                         
                         <i id="list" class="fas fa-list" style="font: 1rem; margin: 0px 5px;cursor: pointer;display: none;" onclick="listviewToggle()"></i>
                         <i id="grid" class="fas fa-th" style="font: 1rem; margin: 0px 5px;cursor: pointer;" onclick="listviewToggle()"></i>
-                        <i class="fas fa-sign-out-alt" style="font: 1rem; margin: 0px 5px;cursor: pointer;"></i>
                         <a href="#"><img class="profile-img" src="img/New-Icon.png" alt="profile-img"></a>
                         <i id="nav" class="fas fa-bars mr-3 ml-4" style="cursor: pointer;" onclick="openNav()"></i>
                     </div>
@@ -74,7 +68,7 @@
                             <h5 class="my-auto">Shared with me</h5>
                         </div>
                     </a>
-                    <a href="#" class="d-flex ml-4 left-bar-btn mb-4">
+                    <a href="javascript: void(0)" class="d-flex ml-4 left-bar-btn mb-4">
                         <div class="mr-4">
                             <i class="far fa-clock"></i>
                         </div>
@@ -82,22 +76,26 @@
                             <h5 class="my-auto">Recent</h5>
                         </div>
                     </a>
-                    <a href="#" class="d-flex ml-4 left-bar-btn mb-4">
+                    <a href="#javascript: void(0)" class="d-flex ml-4 left-bar-btn mb-4">
+                        <div>
+                            <label class="switch">
+                                <input type="checkbox"  id="darkSwitch">
+                                <span class="slider round"></span>
+                              </label>
+                        </div>
+                          <div>
+                              <h5 class="my-auto">Dark Mode</h5>
+                          </div>
+                    </a>
+                    <a href="javascript: void(0)" class="d-flex ml-4 left-bar-btn">
                         <div class="mr-4">
-                            <i class="far fa-star"></i>
+                            <i class="fas fa-sign-out-alt" style="font: 1rem; margin: 0px 5px;cursor: pointer;"></i>
                         </div>
                         <div>
-                            <h5 class="my-auto">Starred</h5>
+                            <h5 class="my-auto">SignOut</h5>
                         </div>
                     </a>
-                    <a href="#" class="d-flex ml-4 left-bar-btn">
-                        <div class="mr-4">
-                            <i class="far fa-trash-alt"></i>
-                        </div>
-                        <div>
-                            <h5 class="my-auto">Trash</h5>
-                        </div>
-                    </a>
+
                     <label id="storage" class="m-4" style="color: #fff;">Storage</label>
                     
                 </div>

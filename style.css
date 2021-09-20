@@ -193,7 +193,7 @@ cursor: pointer;
 }
 #overlay {
     position: fixed; /* Sit on top of the page content */
-    display: none; /* Hidden by default */
+    display: none;
     place-items: center;
     width: 100vw; /* Full width (cover the whole page) */
     height: 100vh; /* Full height (cover the whole page) */
@@ -205,58 +205,21 @@ cursor: pointer;
     z-index: 2; 
     cursor: pointer; 
     overflow: hidden;
-  }
-  .Loading-Modal{
-    position: fixed;
-    background-color: rgba(41, 38, 38, 0.5);
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 999;
-    transition: all 0.3s;
     place-items: center;
-    display: none;
   }
-  .Loading-Modal div{
-    width: 300px;
+  .delete-content{
+    width: 60%;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 2em;
     background: white;
-    border-radius: 1%;
+    border-radius: 5px;
     display: grid;
     place-items: center;
   }
-  .Loading-Modal div ul h5 i{
-      margin-left: 10px;
-  }
-  .Loading-Modal div ul a:hover ,  .Loading-Modal div ul h5 i:hover{
-      color: blueviolet;
-      cursor: pointer;
-  }  
-  .Loading-Modal div .top {
-      display: flex;
-      justify-content: flex-end;
-  }
-  .Loading-Modal div .top i{
-      font-size: 1.4rem;
-  }
-  .loader {
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    animation: spin 2s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+
   #nav{
       visibility: hidden;
   }

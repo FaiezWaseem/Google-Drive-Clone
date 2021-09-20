@@ -39,9 +39,11 @@ function addFolder(id, title){
     var html;
     try{
         html = `   
-         <div class="card mr-4 p5" style="width: 21rem;" data-id="${id}" onclick="folderClick(this)">
+         <div class="card mr-4 p5 ${id}" style="width: 21rem;height:6rem" data-id="${id}" onclick="folderClick(this)">
         <div class="card-body">
         <h5 class="card-title mb-0 folder"><i class="fas fa-folder mr-4"></i>${title}</h5>
+        <i class="fas fa-edit" id="${id}"  onclick="RenameFolder(this)" ></i>
+        <i class="far fa-trash-alt" id="${id}" onclick="DeleteFolder(this)"></i>
         </div>
     `
    document.getElementById('docs').innerHTML += html
@@ -63,7 +65,12 @@ function addPicture(title , link , key , date , share,size){
     </div>
 </div>
     `
-   document.getElementById('files').innerHTML += html
+    if(folder == null){
+        document.getElementById('docs').innerHTML += html
+    }else{
+
+        document.getElementById('files').innerHTML += html
+    }
     }catch(err){
 console.error(err)
 jNotify.error('Error', 'Something went wrong while loading a file',{
@@ -83,7 +90,12 @@ function zipfile(title , link ,  key , date , share , size){
     <h5 class="card-title mb-0 file"> <i class="fas fa-file-archive mr-4"></i></i>${title}</h5>                           
     </div>
     `
-   document.getElementById('files').innerHTML += html
+    if(folder == null){
+        document.getElementById('docs').innerHTML += html
+    }else{
+
+        document.getElementById('files').innerHTML += html
+    }
     }catch(err){
 console.error(err)
     }
@@ -100,7 +112,12 @@ function video(title , link , key , date , share, size){
     <h5 class="card-title mb-0 file"><i class="fas fa-image mr-4"></i>${title}</h5>                           
     </div>
     `
-   document.getElementById('files').innerHTML += html
+    if(folder == null){
+        document.getElementById('docs').innerHTML += html
+    }else{
+
+        document.getElementById('files').innerHTML += html
+    }
     }catch(err){
 console.error(err)
     }
@@ -116,8 +133,10 @@ html = `<li class="breadcrumb-item"><a href="#">${title}</a></li>`
 get('.breadcrumb').innerHTML += html 
 }
 function folderClick($){
+    get('#right-sidebar').style.display = 'none'
+    try{
     var id = $.getAttribute('data-id')
-    addPage(id);
+    addPage(document.querySelector(`.${id} h5`).innerText);
     folder = id
     LoadFiles(id)
     const list_folder = document.getElementById('file_list');
@@ -131,13 +150,13 @@ function folderClick($){
         grid_folder.style.display = 'block'
 
     }
-
+}catch(err){}
 }
 function createFolder(){
 const foldername = prompt('Enter Folder Name')
 if(foldername != null && foldername != ""){
     try{
-        firebase.database().ref("drive/"+uid+"/"+foldername).set({ 
+        firebase.database().ref("drive/"+uid+"/"+generate(5)).set({ 
             folder : foldername
             });
     }catch(err){
@@ -149,11 +168,32 @@ if(foldername != null && foldername != ""){
 }
 function loadfolders(){
     firebase.database().ref('drive/'+uid).on('child_added' , function(snapshot){
-        addFolder(snapshot.key ,snapshot.key )
+        firebase.database().ref('drive/'+uid+"/"+snapshot.key).once('value').then(function (snapshot) {
+            if(snapshot.val().folder){
+
+                addFolder(snapshot.key,snapshot.val().folder )
+            }else{
+                const type = snapshot.val().filename;
+                if(type.includes('.png') ||type.includes('.PNG') || type.includes('.jpg') || type.includes('.gif')){
+                    addPicture(snapshot.val().filename , snapshot.val().file , snapshot.val().key, snapshot.val().date , snapshot.val().share  , snapshot.val().size )
+                    addFileList(snapshot.val().filename , snapshot.val().file , snapshot.val().key, snapshot.val().date , snapshot.val().share , snapshot.val().size)
+                 }else if (type.includes('.zip')){
+                     zipfile(snapshot.val().filename , snapshot.val().file, snapshot.val().key, snapshot.val().date , snapshot.val().share , snapshot.val().size)
+                     addFileList(snapshot.val().filename , snapshot.val().file , snapshot.val().key, snapshot.val().date , snapshot.val().share , snapshot.val().size)
+                 }else if (type.includes('.mp4')){
+                     video(snapshot.val().filename , snapshot.val().file, snapshot.val().key, snapshot.val().date , snapshot.val().share , snapshot.val().size)
+                     addFileList(snapshot.val().filename , snapshot.val().file , snapshot.val().key, snapshot.val().date , snapshot.val().share , snapshot.val().size)
+                 }else{
+                    zipfile(snapshot.val().filename , snapshot.val().file, snapshot.val().key, snapshot.val().date , snapshot.val().share , snapshot.val().size)
+                    addFileList(snapshot.val().filename , snapshot.val().file , snapshot.val().key , snapshot.val().date , snapshot.val().share , snapshot.val().size)
+                }
+            }
+        })  
     })
 }
 function home(){
     folder = null
+    get('#right-sidebar').style.display = 'none'
     document.getElementById('files').innerHTML = ""
     get('#folder').style.display = "none"
     get('.emailList__list').style.display = "none"
@@ -199,11 +239,24 @@ function LoadFiles(fname){
    }
    
     })
+
 }
+
 function uploadfile(file , fname , type , size){  
     const d = new Date();
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var newPostKey = firebase.database().ref().child('drive').push().key;
+    if(folder ==  null){
+        firebase.database().ref("drive/"+uid+"/"+generate(6)).set({ 
+            "file": file ,
+            "filename": fname,
+             "type": type,
+             'key': newPostKey,
+             'date': d.getDate() + '/'+months[d.getMonth()] +'/'+ d.getFullYear(),
+             'size': size,
+             'share': false
+        });
+    }else{
     firebase.database().ref("drive/"+uid+"/"+folder+"/"+newPostKey).set({ 
         "file": file ,
         "filename": fname,
@@ -214,10 +267,22 @@ const months = ["January", "February", "March", "April", "May", "June", "July", 
          'share': false
     });
 }
+}
 function deleteFile($){
    const id = $.getAttribute('data-id')
    try{
-       
+       if(folder == null){
+        firebase.database().ref('drive/'+uid+"/"+id).once('value').then(function (snapshot) {
+            let link = snapshot.val().file
+             link = link.replace('https://drive.google.com/uc?export=download&id=', "")
+              link = link.replace(/\s/g, '')
+              deleteFileDrive(link)
+              firebase.database().ref('drive/'+uid+"/").child(id).remove();
+     })
+         
+     removeElementsByClass(`${id}`)
+        dropItemClicked()
+       }else{
     firebase.database().ref('drive/'+uid+"/"+folder+"/"+id).once('value').then(function (snapshot) {
            let link = snapshot.val().file
             link = link.replace('https://drive.google.com/uc?export=download&id=', "")
@@ -228,6 +293,7 @@ function deleteFile($){
         
     removeElementsByClass(`${id}`)
        dropItemClicked()
+    }
    }catch(err){
    alert(err)
    }
@@ -263,6 +329,28 @@ function removeElementsByClass(className){
     const elements = document.getElementsByClassName(className);
     while(elements.length > 0){
         elements[0].parentNode.removeChild(elements[0]);
+    }
+}
+function RenameFolder(folder){
+    const foldername = folder.getAttribute('id')
+    let folderName = prompt("Enter new name for Folder");
+if (folderName != null) {
+    firebase.database().ref(`drive/${uid}/${foldername}/`).update({
+        "folder" : folderName
+    });
+  document.querySelector(`.${foldername} h5`).innerHTML = `<i class="fas fa-folder mr-4"></i> ${folderName}`
+}else{
+    jNotify.error('Folder Renaming Error ','Folder Not Renamed')
+}
+ 
+}
+function DeleteFolder(folder){
+    document.getElementById('overlay').style.display = 'grid'
+    document.querySelector('#deleteFolder').onclick=()=>{
+        const foldername = folder.getAttribute('id')
+        firebase.database().ref('drive/'+uid+"/").child(foldername).remove();
+        removeElementsByClass(`${foldername}`)
+        document.getElementById('overlay').style.display = 'none'
     }
 }
 // Pass the checkbox name to the function
@@ -330,13 +418,23 @@ var upload = get('#upload')
 
 upload.onclick = function(e){
     if(folder === null){
-        jNotify.error('Error', 'No Folder Selected. \n Please Select a Folder to Upload Files in.',{
-            delay: 4000,
-            fadeDelay: 500,
-            closeButton: true,
-            titleBold: true,
-            offset: 40,
-            })
+            var  input = document.createElement('input');
+            input.type = 'file';
+           input.multiple = "multiple"
+        
+        input.onchange = e =>{
+            for(let x = 0 ; x < e.target.files.length ; x++){
+                uploadToDrive(e.target.files[x])
+            }
+            files = e.target.files;
+            fileName = e.target.files[0].name;
+            reader = new FileReader();
+            reader.readAsArrayBuffer(files[0]);
+            reader.onload = f => {
+                // uploadToDrive2(f , files[0])
+               }
+           }    
+           input.click();
     }else{
     var  input = document.createElement('input');
     input.type = 'file';
@@ -417,6 +515,8 @@ function getFileShaingPermission(fid){
            .catch(err =>{
            
                 console.warn(err)
+                console.clear();
+                console.log({user : uid , status : 'logged In'})
            
            })
 }
@@ -528,7 +628,6 @@ function dropDown($){
    linkfile ='https://faiezwaseem.github.io/Google-Drive-Clone/fileSharing/' + param
     dropdown.style.display = 'flex'
     get('#button-Delete').setAttribute("data-id", key);
-    console.log(date)
     get('#date').textContent = date
     get('#size').textContent = size
     get('#button-download').onclick= ()=>{
@@ -554,17 +653,13 @@ function dropItemClicked(){
 const switchSharing = get('#view')
 switchSharing.addEventListener('click',function(){
     const id = get('#view').getAttribute('data-id');
-    console.log(id)
     if(id === null){
         jNotify.error('Id Null','Coundnt process');
-        console.log('id null')
         switchSharing.checked = false
     }else{
         if(switchSharing.checked){
-  console.log('Make file public')
   setfileSharing(id);
 }else{
-     console.log('Make file private')
         removefilesharing(id)
         }
     }
@@ -573,6 +668,26 @@ switchSharing.addEventListener('click',function(){
 function setfileSharing(id){
 
 try{
+    if(folder == null){
+        firebase.database().ref(`drive/${uid}/${id}`).once('value').then(function (snapshot) {
+            if(snapshot.exists()){
+                const url = snapshot.val().file;
+                const title = snapshot.val().filename
+              firebase.database().ref('sharing/'+id).set({
+                  download : url ,
+                  title : title
+              })
+              firebase.database().ref(`drive/${uid}/${id}`).update({
+                  "share" : true
+              });
+              get(`.${id}`).setAttribute('share','true')
+          }else{
+               
+                console.warn('file not exist')
+            }
+          
+            })
+    }else{
     firebase.database().ref(`drive/${uid}/${folder}/${id}`).once('value').then(function (snapshot) {
       if(snapshot.exists()){
           const url = snapshot.val().file;
@@ -591,6 +706,7 @@ try{
       }
     
       })
+    }
  
 }catch(err){
 console.log(err)
@@ -598,10 +714,17 @@ console.log(err)
 }
 function removefilesharing(id){
     try{
-        firebase.database().ref(`sharing`).child(id).remove();
-        firebase.database().ref(`drive/${uid}/${folder}/${id}`).update({
-            "share" : false
-        });
+           firebase.database().ref(`sharing`).child(id).remove();
+           if(folder == null){
+            firebase.database().ref(`drive/${uid}/${id}`).update({
+                "share" : false
+            });
+           }else{
+            firebase.database().ref(`drive/${uid}/${folder}/${id}`).update({
+                "share" : false
+            });
+           }
+
         get(`.${id}`).setAttribute('share','false')
     }catch(err){
     console.log(err)
@@ -651,7 +774,7 @@ function openNav() {
     input.select();
     var resultCopy = document.execCommand("copy");
     document.body.removeChild(input);
-    alert('copied')
+    jNotify.success("Link", 'Link Copied Successfully');
     return resultCopy;
   }
 get('.fa-sign-out-alt').onclick=()=>{
@@ -681,13 +804,10 @@ dropArea.addEventListener("dragover", (event)=>{
     //getting user select file and [0] this means if user select multiple files then we'll select only the first one
     if(folder == null){
         dropArea.classList.remove("active");
-        jNotify.error('Error', 'Please Select a Folder',{
-            delay: 2000,
-            fadeDelay: 500,
-            closeButton: true,
-            titleBold: true,
-            offset: 40,
-            });
+        file = event.dataTransfer.files;
+        for(let x = 0 ; x < event.dataTransfer.files.length ; x++){
+            uploadToDrive(event.dataTransfer.files[x])
+        }
     }else{
         dropArea.classList.remove("active");
         file = event.dataTransfer.files;
@@ -697,3 +817,27 @@ dropArea.addEventListener("dragover", (event)=>{
        console.log(file)
     }
   }); 
+  function generate(l) {
+    if (typeof l==='undefined'){var l=8;}
+    /* c : alphanumeric character string */
+    var c='abcdefghijknopqrstuvwxyzACDEFGHJKLMNPQRSTUVWXYZ12345679',
+    n=c.length,
+    /* p : special character string */
+    p='-*_?@£$¢€¥|`÷×°^[]}{\®©∆',
+    o=p.length,
+    r='',
+    n=c.length,
+    /* s : determinate the position of the special character */
+    s=Math.floor(Math.random() * (p.length-1));
+
+    for(var i=0; i<l; ++i){
+        if(s == i){
+            /* special charact insertion (random position s) */
+            r += p.charAt(Math.floor(Math.random() * o));
+        }else{
+            /* alphanumeric insertion */
+            r += c.charAt(Math.floor(Math.random() * n));
+        }
+    }
+    return r + Math.floor((Math.random()*10)+1);
+}

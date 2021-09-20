@@ -209,7 +209,7 @@ const months = ["January", "February", "March", "April", "May", "June", "July", 
         "filename": fname,
          "type": type,
          'key': newPostKey,
-         'date': d.getDay() + '/'+months[d.getMonth()] +'/'+ d.getFullYear(),
+         'date': d.getDate() + '/'+months[d.getMonth()] +'/'+ d.getFullYear(),
          'size': size,
          'share': false
     });

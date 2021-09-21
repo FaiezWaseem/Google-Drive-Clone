@@ -827,7 +827,7 @@ dropArea.addEventListener("dragover", (event)=>{
     var c='abcdefghijknopqrstuvwxyzACDEFGHJKLMNPQRSTUVWXYZ',
     n=c.length,
     /* p : special character string */
-    p='-*_?@£$¢€¥|`÷×°^[]}{\®©∆',
+    p='-*_?@£$¢€¥|`÷×°^\®©∆',
     o=p.length,
     r='',
     n=c.length,
@@ -853,12 +853,28 @@ var el = document.querySelector('#docs');
 // stop the event from bubbling up
 e.preventDefault()
 const id = e.target.getAttribute('data-id')
+console.log(e)
 if(id == null){
 
 }else{
-  
+    console.log('enter')
+    var menu = document.querySelector('.menu2');
+    showMenu(e.detail.clientX,e.detail.clientY)
+    function showMenu(x, y){
+        menu.style.left = x + 'px';
+        menu.style.top = y + 'px';
+        menu.classList.add('menu-show');
+    }
+    
+    function hideMenu(){
+        menu.classList.remove('menu-show');
+    }
+  document.addEventListener('click',function(){
+      hideMenu()
+  })
 }
 });
 }catch(err){
 console.warn(err)
 }
+

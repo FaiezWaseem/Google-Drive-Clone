@@ -247,9 +247,9 @@ function LoadFiles(fname){
 function uploadfile(file , fname , type , size){  
     const d = new Date();
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var newPostKey = firebase.database().ref().child('drive').push().key;
+    var newPostKey = generate(6);
     if(folder ==  null){
-        firebase.database().ref("drive/"+uid+"/"+generate(6)).set({ 
+        firebase.database().ref("drive/"+uid+"/"+newPostKey).set({ 
             "file": file ,
             "filename": fname,
              "type": type,
@@ -272,9 +272,11 @@ const months = ["January", "February", "March", "April", "May", "June", "July", 
 }
 function deleteFile($){
    const id = $.getAttribute('data-id')
+   console.log(id)
    try{
        if(folder == null){
         firebase.database().ref('drive/'+uid+"/"+id).once('value').then(function (snapshot) {
+           
             let link = snapshot.val().file
              link = link.replace('https://drive.google.com/uc?export=download&id=', "")
               link = link.replace(/\s/g, '')

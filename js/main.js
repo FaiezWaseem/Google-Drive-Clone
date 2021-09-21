@@ -864,6 +864,7 @@ if(id == null){
         menu.classList.add('menu-show');
         get('#rename').setAttribute('data-id',id)
         get('#folderDelete').setAttribute('data-id',id)
+        get('#openFolder').setAttribute('data-id',id)
     }
     
     function hideMenu(){

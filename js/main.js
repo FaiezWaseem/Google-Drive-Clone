@@ -18,7 +18,13 @@ auth.onAuthStateChanged(function(user){
 function get($){
 return document.querySelector($);
 }
-
+window.addEventListener('load',function(){
+    if(window.innerWidth < 768){
+        document.getElementById("left").classList.remove("col-2");
+        document.getElementById("left").classList.remove("p-4");
+        document.getElementById("left").style.width = '0px'
+    }
+})
 //-----------------Componenets----------------//
 function addFileList(title , link , key , date , share , size){
     const list = document.querySelector('.emailList__list');
@@ -763,6 +769,11 @@ function openNav() {
     document.getElementById("left").style.width = ''
     document.getElementById("left").classList.add("col-2");
     document.getElementById("left").classList.add("p-4");
+    
+  }else if(e.currentTarget.innerWidth < 768){
+    document.getElementById("left").classList.remove("col-2");
+    document.getElementById("left").classList.remove("p-4");
+    document.getElementById("left").style.width = '0px'
   }
  }) 
  function FileSize(size) {
@@ -779,9 +790,11 @@ function openNav() {
     jNotify.success("Link", 'Link Copied Successfully');
     return resultCopy;
   }
+  //Function SignOut
 get('.fa-sign-out-alt').onclick=()=>{
       auth.signOut();
   }
+  //File Side bar CLose 
   get('#sidebar-close').onclick=()=>{
       get('#right-sidebar').style.display = 'none'
   }
@@ -819,6 +832,7 @@ dropArea.addEventListener("dragover", (event)=>{
        console.log(file)
     }
   }); 
+  //Genereate Random Key
   function generate(l) {
     if (typeof l==='undefined'){var l=8;}
     /* c : alphanumeric character string */
@@ -843,6 +857,7 @@ dropArea.addEventListener("dragover", (event)=>{
     }
     return r + Math.floor((Math.random()*10)+1);
 }
+//Folder DropDown Menu 
 try{
 //Long press
 var el = document.querySelector('#docs');
@@ -878,4 +893,3 @@ if(id == null){
 }catch(err){
 console.warn(err)
 }
-

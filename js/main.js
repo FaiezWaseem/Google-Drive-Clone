@@ -39,8 +39,8 @@ function addFolder(id, title){
     var html;
     try{
         html = `   
-         <div class="card mr-4 p5 ${id}" style="width: 21rem;height:6rem" data-id="${id}" onclick="folderClick(this)">
-        <div class="card-body">
+         <div class="card mr-4 p5 ${id}" data-long-press-delay="500" style="width: 21rem;height:6rem" data-id="${id}" onclick="folderClick(this)">
+        <div class="card-body" data-id="${id}">
         <h5 class="card-title mb-0 folder"><i class="fas fa-folder mr-4"></i>${title}</h5>
         <i class="fas fa-edit" id="${id}"  onclick="RenameFolder(this)" ></i>
         <i class="far fa-trash-alt" id="${id}" onclick="DeleteFolder(this)"></i>
@@ -824,7 +824,7 @@ dropArea.addEventListener("dragover", (event)=>{
   function generate(l) {
     if (typeof l==='undefined'){var l=8;}
     /* c : alphanumeric character string */
-    var c='abcdefghijknopqrstuvwxyzACDEFGHJKLMNPQRSTUVWXYZ12345679',
+    var c='abcdefghijknopqrstuvwxyzACDEFGHJKLMNPQRSTUVWXYZ',
     n=c.length,
     /* p : special character string */
     p='-*_?@£$¢€¥|`÷×°^[]}{\®©∆',
@@ -844,4 +844,21 @@ dropArea.addEventListener("dragover", (event)=>{
         }
     }
     return r + Math.floor((Math.random()*10)+1);
+}
+try{
+//Long press
+var el = document.querySelector('#docs');
+ el.addEventListener('long-press', function(e) {
+
+// stop the event from bubbling up
+e.preventDefault()
+const id = e.target.getAttribute('data-id')
+if(id == null){
+
+}else{
+  
+}
+});
+}catch(err){
+console.warn(err)
 }

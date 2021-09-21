@@ -41,9 +41,7 @@ function addFolder(id, title){
         html = `   
          <div class="card mr-4 p5 ${id}" data-long-press-delay="500" style="width: 21rem;height:6rem" data-id="${id}" onclick="folderClick(this)">
         <div class="card-body" data-id="${id}">
-        <h5 class="card-title mb-0 folder"><i class="fas fa-folder mr-4"></i>${title}</h5>
-        <i class="fas fa-edit" id="${id}"  onclick="RenameFolder(this)" ></i>
-        <i class="far fa-trash-alt" id="${id}" onclick="DeleteFolder(this)"></i>
+        <h5 class="card-title mb-0 folder" data-id="${id}><i class="fas fa-folder mr-4"></i>${title}</h5>
         </div>
     `
    document.getElementById('docs').innerHTML += html
@@ -336,7 +334,7 @@ function removeElementsByClass(className){
     }
 }
 function RenameFolder(folder){
-    const foldername = folder.getAttribute('id')
+    const foldername = folder.getAttribute('data-id')
     let folderName = prompt("Enter new name for Folder");
 if (folderName != null) {
     firebase.database().ref(`drive/${uid}/${foldername}/`).update({
@@ -351,7 +349,7 @@ if (folderName != null) {
 function DeleteFolder(folder){
     document.getElementById('overlay').style.display = 'grid'
     document.querySelector('#deleteFolder').onclick=()=>{
-        const foldername = folder.getAttribute('id')
+        const foldername = folder.getAttribute('data-id')
         firebase.database().ref('drive/'+uid+"/").child(foldername).remove();
         removeElementsByClass(`${foldername}`)
         document.getElementById('overlay').style.display = 'none'
@@ -853,17 +851,19 @@ var el = document.querySelector('#docs');
 // stop the event from bubbling up
 e.preventDefault()
 const id = e.target.getAttribute('data-id')
-console.log(e)
+
 if(id == null){
 
 }else{
-    console.log('enter')
+   
     var menu = document.querySelector('.menu2');
     showMenu(e.detail.clientX,e.detail.clientY)
     function showMenu(x, y){
         menu.style.left = x + 'px';
         menu.style.top = y + 'px';
         menu.classList.add('menu-show');
+        get('#rename').setAttribute('data-id',id)
+        get('#folderDelete').setAttribute('data-id',id)
     }
     
     function hideMenu(){

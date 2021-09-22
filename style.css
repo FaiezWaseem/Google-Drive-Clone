@@ -574,6 +574,7 @@ input:checked + .slider:before {
   transform: translate(0, 15px) scale(.95);
   transition: transform 0.1s ease-out, opacity 0.1s ease-out;
   pointer-events: none;
+  display: none;
 }
 
 .menu-item {
@@ -667,11 +668,16 @@ a.menu-btn {
   left: 99%;
 }
 
+.menu-show{
+  display: block;
+  transition: all 0.5s ease-in;
+}
 .menu-show,
 .menu-item:hover > .menu {
   opacity: 1;
   transform: translate(0, 0) scale(1);
   pointer-events: auto;
+  
 }
 
 .menu-item:hover > .menu {

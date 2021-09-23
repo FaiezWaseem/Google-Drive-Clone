@@ -1,5 +1,7 @@
 
-/*  */
+body{
+  overflow: hidden;
+}
 #right-sidebar{
   
   position:fixed;
@@ -573,7 +575,7 @@ input:checked + .slider:before {
   opacity: 0;
   transform: translate(0, 15px) scale(.95);
   transition: transform 0.1s ease-out, opacity 0.1s ease-out;
-  pointer-events: none;
+  /* pointer-events: none; */
   display: none;
 }
 

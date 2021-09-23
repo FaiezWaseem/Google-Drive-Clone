@@ -24,7 +24,7 @@
 
                 <div class="input-group">
                     <i class="fas fa-search"></i>
-                    <input class="search-input" type="text" placeholder="Search in drive">
+                    <input class="search-input" id="fileSearch" type="text" placeholder="Search in drive">
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
@@ -146,7 +146,6 @@
 
 
 
-
      <div id="overlay">
         <div class="delete-content">
             <div>
@@ -214,7 +213,7 @@
         </button>
     </li>
     <li class="menu-item" id="rename" onclick="RenameFolder(this)">
-        <button type="button" class="menu-btn">
+        <button type="button" class="menu-btn" >
             <i class="fa fa-edit"></i>
             <span class="menu-text" >Rename</span>
         </button>
@@ -233,20 +232,23 @@
      <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-auth.js"></script>
      <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-database.js"></script>
      <!-- ------FIREBASE SDK---------- -->
+          <!-- CONGIG -->
+          <script src="./js/config.js"></script>
+     <!-- Extra Libs -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://apis.google.com/js/api.js"></script>
-<!-- <script src="https://cdn.jsdelivr.net/gh/tanaikech/ResumableUploadForGoogleDrive_js@master/resumableupload_js.min.js"></script> -->
 <script src="./js/resumableupload.js"></script>
-                   <!-- CONGIG -->
-                   <script src="./js/config.js"></script>
-                   <!-- Main file -->
-                   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="./js/dark-mode-switch.min.js"></script>
 <script src="./js/longpress.min.js"></script>
 <script src="src/notify.js"></script>
+    <!-- Main file -->
 <script src="./js/main.js"></script>
+<script src="./js/components.js"></script>
+<script src="./js/upload.js"></script>
+<script src="./js/DomFunction.js"></script>
         
 </body>
 </html>

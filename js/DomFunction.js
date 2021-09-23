@@ -215,7 +215,7 @@ dropArea.addEventListener("dragover", (event)=>{
     var c='abcdefghijknopqrstuvwxyzACDEFGHJKLMNPQRSTUVWXYZ',
     n=c.length,
     /* p : special character string */
-    p='-*_?@£$¢€¥|`÷×°^\®©∆',
+    p='-*_@£¢€¥',
     o=p.length,
     r='',
     n=c.length,
@@ -231,7 +231,7 @@ dropArea.addEventListener("dragover", (event)=>{
             r += c.charAt(Math.floor(Math.random() * n));
         }
     }
-    return r + Math.floor((Math.random()*10)+1);
+    return r + Math.floor((Math.random()*10));
 }
 //Folder DropDown Menu 
 try{

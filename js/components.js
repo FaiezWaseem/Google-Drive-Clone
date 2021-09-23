@@ -25,7 +25,7 @@ function addFolder(id, title){
     `
    document.getElementById('docs').innerHTML += html
     }catch(err){
-console.error(err)
+console.warn(err)
     }
 
 }
@@ -205,6 +205,7 @@ function LoadFiles(fname){
    if(snapshot.key == "folder"){
    
    }else{
+       try{
     if (document.querySelector(`.${snapshot.val().key}`)) {
         // console.log("Element exists!");
       } else {
@@ -223,6 +224,7 @@ function LoadFiles(fname){
        addFileList(snapshot.val().filename , snapshot.val().file , snapshot.val().key , snapshot.val().date , snapshot.val().share , snapshot.val().size)
    }
    }
+}catch(err){console.log('ERROR FILE LOADING \n', err )}
 }
 }
     })

@@ -8,4 +8,5 @@
  - [x] Create Folder
  - [x] Multiple File Delete
  - [x] Dark Mode
+ - [x] Drag Drop Upload
  - [ ] Sub Folders

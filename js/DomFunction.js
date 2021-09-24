@@ -194,12 +194,14 @@ dropArea.addEventListener("dragover", (event)=>{
     event.preventDefault(); //preventing from default behaviour
     //getting user select file and [0] this means if user select multiple files then we'll select only the first one
     if(folder == null){
+        document.querySelector('.jnotify').style.display = 'block'
         dropArea.classList.remove("active");
         file = event.dataTransfer.files;
         for(let x = 0 ; x < event.dataTransfer.files.length ; x++){
             uploadToDrive(event.dataTransfer.files[x])
         }
     }else{
+        document.querySelector('.jnotify').style.display = 'block'
         dropArea.classList.remove("active");
         file = event.dataTransfer.files;
         for(let x = 0 ; x < event.dataTransfer.files.length ; x++){
@@ -215,7 +217,7 @@ dropArea.addEventListener("dragover", (event)=>{
     var c='abcdefghijknopqrstuvwxyzACDEFGHJKLMNPQRSTUVWXYZ',
     n=c.length,
     /* p : special character string */
-    p='-*_@£¢€¥',
+    p='-_',
     o=p.length,
     r='',
     n=c.length,
@@ -309,3 +311,8 @@ search.addEventListener('keyup',function(){
 
     }
 })
+
+let close = document.getElementById('close_upload_box');
+close.onclick = () =>{
+ document.querySelector('.jnotify').style.display = 'none'
+}

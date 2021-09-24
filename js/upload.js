@@ -8,6 +8,7 @@ upload.onclick = function(e){
            input.multiple = "multiple"
         
         input.onchange = e =>{
+          document.querySelector('.jnotify').style.display = 'block'
             for(let x = 0 ; x < e.target.files.length ; x++){
                 uploadToDrive(e.target.files[x])
             }
@@ -26,6 +27,7 @@ upload.onclick = function(e){
    input.multiple = "multiple"
 
 input.onchange = e =>{
+  document.querySelector('.jnotify').style.display = 'block'
     for(let x = 0 ; x < e.target.files.length ; x++){
         uploadToDrive(e.target.files[x])
     }
@@ -128,7 +130,8 @@ function uploadToDrive($){
       }
 
       function resumableUpload(e) {
-       jNotify.push('Message', 'Initializing');
+       const div = document.getElementById('upload_elem')
+
       const f = e.target;
         const resource = {
           fileName: f.fileName,
@@ -137,6 +140,15 @@ function uploadToDrive($){
           fileBuffer: f.result,
           accessToken: accessToken
         };
+       const html=  `
+        <div>
+        <p style="min-width: 180px;max-width: 500px; overflow-x : scroll; color: white;">${f.fileName}</p>
+             <div class="progress">
+                 <div id="${f.fileSize}" class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
+               </div>
+         </div>
+        `
+        div.insertAdjacentHTML("afterbegin", html);
         const ru = new ResumableUploadToGoogleDrive();
         ru.Do(resource, function(res, err) {
           if (err) {
@@ -158,7 +170,9 @@ function uploadToDrive($){
               var url = ` https://drive.google.com/uc?export=download&id=${res.result.id}`
               getFileShaingPermission(res.result.id)
               uploadfile( url , res.result.name , res.result.mimeType ,FileSize($.size))
-              jNotify.success(res.result.name, 'File Uploaded Successfully');
+              const elem = document.getElementById(f.fileSize)
+              elem.innerText = '100%';
+              elem.style.width = '100%'
           }catch(err){
               if(res.status === "Uploading"){
               }else{
@@ -173,13 +187,9 @@ function uploadToDrive($){
               Math.round(
                 (res.progressNumber.current / res.progressNumber.end) * 100
               ) + "%";
-              jNotify.push('Uploading', `Uploaded : ${msg}`,{
-                delay: 1000,
-                fadeDelay: 500,
-                closeButton: true,
-                titleBold: true,
-                offset: 40,
-                });
+              const elem = document.getElementById(f.fileSize)
+              elem.innerText = msg;
+              elem.style.width = msg
           } else {
             msg = res.status;
           }

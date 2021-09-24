@@ -142,7 +142,7 @@ function uploadToDrive($){
         };
        const html=  `
         <div>
-        <p style="min-width: 180px;max-width: 500px; overflow-x : scroll; color: white;">${f.fileName}</p>
+        <p style=" overflow-x : scroll; color: white;">${f.fileName}</p>
              <div class="progress">
                  <div id="${f.fileSize}" class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
                </div>

@@ -40,7 +40,7 @@ firebase.database().ref(`sharing/${key}`).once('value').then(function (snapshot)
         for (const [key, value] of Object.entries(obj)) {
             if(key != 'folder'){
                 const s = value;
-     
+                console.log(s)
                 const type = s.filename;
                 if(type.includes('.png') ||type.includes('.PNG') || type.includes('.jpg') ||  type.includes('.jpeg') || type.includes('.gif')){
                     var link2 = value.file.replace('https://drive.google.com/uc?export=download&id=', "")
@@ -55,7 +55,7 @@ firebase.database().ref(`sharing/${key}`).once('value').then(function (snapshot)
                     var link2 = value.file.replace('https://drive.google.com/uc?export=download&id=', "")
                     link2 = link2.replace(/\s/g, '')
                     link2 = 'https://drive.google.com/thumbnail?id='+link2
-                     main.innerHTML = extra.filevideo(s.size , s.date , s.key , s.filename , link2 , s.share)
+                     main.innerHTML += extra.filevideo(s.size , s.date , s.key , s.filename , link2 , s.share)
             
                  }else{
                   
@@ -80,25 +80,26 @@ firebase.database().ref(`sharing/${key}`).once('value').then(function (snapshot)
                     for (const [key, value] of Object.entries(obj)) {
                         if(key != 'folder'){
                             const s = value;
-                 
+                            console.log(s)
                             const type = s.filename;
                             if(type.includes('.png') ||type.includes('.PNG') || type.includes('.jpg') ||  type.includes('.jpeg') || type.includes('.gif')){
                                 var link2 = value.file.replace('https://drive.google.com/uc?export=download&id=', "")
                                 link2 = link2.replace(/\s/g, '')
                                 link2 = 'https://drive.google.com/thumbnail?id='+link2
+                                console.log('image')
                                 main.innerHTML += extra.picture(s.size , s.date , s.key , s.filename , link2 , s.share)
                                 
-                             }else if (type.includes('.zip')){
+                             }else if (type.includes('.zip') || type.includes('.pdf') || type.includes('.doc') || type.includes('.xls') ){
                                  main.innerHTML += extra.filezip(s.size , s.date , s.key , s.filename , s.file , s.share)
                                  
                              }else if (type.includes('.mp4')){
                                 var link2 = value.file.replace('https://drive.google.com/uc?export=download&id=', "")
                                 link2 = link2.replace(/\s/g, '')
                                 link2 = 'https://drive.google.com/thumbnail?id='+link2
-                                 main.innerHTML = extra.filevideo(s.size , s.date , s.key , s.filename , link2 , s.share)
+                                 main.innerHTML += extra.filevideo(s.size , s.date , s.key , s.filename , link2 , s.share)
                         
                              }else{
-                              
+                               console.log('other')
                                 main.innerHTML += extra.filezip(s.size , s.date , s.key , s.filename , s.file , s.share)
                             }
                         }else{

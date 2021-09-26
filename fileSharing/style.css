@@ -106,6 +106,7 @@ align-items: center;
     .card{
         width: 100% !important;
         height: auto;
+        margin: 5px 0px;
     }
     .card video{
         height: 120px;

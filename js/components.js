@@ -224,7 +224,7 @@ function LoadFiles(fname){
        addFileList(snapshot.val().filename , snapshot.val().file , snapshot.val().key , snapshot.val().date , snapshot.val().share , snapshot.val().size)
    }
    }
-}catch(err){console.log('ERROR FILE LOADING \n', err )}
+}catch(err){console.warn('ERROR FILE LOADING \n')}
 }
 }
     })

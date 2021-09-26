@@ -344,6 +344,15 @@ function DeleteFolder(folder){
         document.getElementById('overlay').style.display = 'none'
     }
 }
+function CopyFolderLink(folder){
+    const key = folder.getAttribute('data-id');
+    const param = `?folder=${btoa(key)}`
+    linkfile ='https://faiezwaseem.github.io/Google-Drive-Clone/fileSharing/' + param
+    copytext(linkfile);
+}
+function RemoveFolderSharing(id){
+    firebase.database().ref('sharing').child(id).remove();
+}
 // Pass the checkbox name to the function
 function getCheckedBoxes(chkboxName) {
     var checkboxes = document.getElementsByName(chkboxName);

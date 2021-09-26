@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="src/notify.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+ 
 </head>
 <body>
      <section class="border-bottom">
@@ -145,7 +146,7 @@
      </section>
 
 
-
+<!-- Folder Delete -->
      <div id="overlay">
         <div class="delete-content">
             <div>
@@ -180,7 +181,6 @@
     <div class="share">
         <h4>File Share:</h4>
         <label class="switch">
-            public
             <input type="checkbox"  id="view" >
             <span class="slider round"></span>
           </label>
@@ -197,7 +197,7 @@
 
 </div>
 
-
+<!-- Folder Context Menu -->
 <ul class="menu2">
     <li class="menu-item">
         <a href="#" class="menu-btn" id="openFolder" onclick="folderClick(this)">
@@ -206,10 +206,10 @@
         </a>
     </li>
     <li class="menu-separator"></li>
-    <li class="menu-item">
+    <li class="menu-item" id="shareFolder" onclick="CopyFolderLink(this)">
         <button type="button" class="menu-btn">
-            <i class="fa fa-download"></i>
-            <span class="menu-text">Save</span>
+            <i class="fa fa-link"></i>
+            <span class="menu-text" id="fshare">share Link</span>
         </button>
     </li>
     <li class="menu-item" id="rename" onclick="RenameFolder(this)">
@@ -224,8 +224,14 @@
             <span class="menu-text">Delete</span>
         </button>
     </li>
+    <li class="menu-item" >
+        <label class="switch">
+            <input type="checkbox"  id="folderShare" >
+            <span class="slider round"></span>
+          </label>
+    </li>
 </ul>
-
+<!-- Uploading files List & Status -->
 <div class="jnotify" style="bottom: 40px; color: white; background: rgb(40, 167, 69); display: none;">
   <div class="message-container" style="color: white; background: rgb(26, 107, 44);"><div class="icon success"></div>
   <div class="message">Files</div> <div></div><div class="close" id="close_upload_box"></div>
@@ -235,6 +241,8 @@
 
 </div>
 </div>  
+
+
      <!-- ------FIREBASE SDK---------- -->
      <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
      <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-auth.js"></script>

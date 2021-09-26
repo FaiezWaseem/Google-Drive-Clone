@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FileSharing</title>
     <script src="https://kit.fontawesome.com/5e14d5d81a.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <div class="container">
+   
         <div class="header">
             <i class="fas fa-arrow-left" id="back" onclick="goback()"></i>
             <h1 id="title"></h1>
@@ -19,10 +19,11 @@
         <div class="main">
         
         </div>
-    </div>
+   
     <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-database.js"></script>
     <script src="../js/config.js"></script>
-    <script src="./sharing.js"></script>
+    <script type="module" src="./sharing.js"></script>
 </body>
 </html>

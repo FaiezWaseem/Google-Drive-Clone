@@ -258,6 +258,15 @@ if(id == null){
         get('#rename').setAttribute('data-id',id)
         get('#folderDelete').setAttribute('data-id',id)
         get('#openFolder').setAttribute('data-id',id)
+        get('#shareFolder').setAttribute('data-id',id)
+        get('#folderShare').setAttribute('data-id',id)
+        firebase.database().ref(`drive/${uid}/${id}`).once('value').then(function(snapshot){
+            if(snapshot.val().share){
+             get('#folderShare').checked = true
+            }else{
+                get('#folderShare').checked = false
+            }
+        })
     }
     
     function hideMenu(){
@@ -284,7 +293,8 @@ search.addEventListener('keyup',function(){
             document.querySelector(`.${id}`).style.display = 'flex';
           }else{
           if(text.includes(searchvalue)){
- 
+            const id = h.getAttribute("data-id")
+            document.querySelector(`.${id}`).style.display = 'flex';
           }else{
               const id = h.getAttribute("data-id")
           document.querySelector(`.${id}`).style.display = 'none';
@@ -301,7 +311,8 @@ search.addEventListener('keyup',function(){
           document.querySelector(`.${id}`).style.display = 'flex';
         }else{
         if(text.includes(searchvalue)){
-
+            const id = h.getAttribute("data-id")
+            document.querySelector(`.${id}`).style.display = 'flex';
         }else{
             const id = h.getAttribute("data-id")
         document.querySelector(`.${id}`).style.display = 'none';
@@ -311,8 +322,105 @@ search.addEventListener('keyup',function(){
 
     }
 })
+search.addEventListener('keydown',function(){  
+    if(folder == null){
+      let h5 = document.querySelectorAll('.card-body h5');
+      h5.forEach((h)=>{
+          const searchvalue = search.value.toLowerCase()
+          const text = h.innerText.toLowerCase();
+          if(searchvalue == ""){
+            const id = h.getAttribute("data-id")
+            document.querySelector(`.${id}`).style.display = 'flex';
+          }else{
+          if(text.includes(searchvalue)){
+            const id = h.getAttribute("data-id")
+            document.querySelector(`.${id}`).style.display = 'flex';
+          }else{
+              const id = h.getAttribute("data-id")
+          document.querySelector(`.${id}`).style.display = 'none';
+        }
+    }
+    })
+}else{
+    let h5 = document.querySelectorAll('.card-body h5');
+    h5.forEach((h)=>{
+        const searchvalue = search.value.toLowerCase()
+        const text = h.innerText.toLowerCase();
+        if(searchvalue == ""){
+          const id = h.getAttribute("data-id")
+          document.querySelector(`.${id}`).style.display = 'flex';
+        }else{
+        if(text.includes(searchvalue)){
+            const id = h.getAttribute("data-id")
+            document.querySelector(`.${id}`).style.display = 'flex';
+        }else{
+            const id = h.getAttribute("data-id")
+        document.querySelector(`.${id}`).style.display = 'none';
+      }
+  }
+  })
 
+    }
+})
 let close = document.getElementById('close_upload_box');
 close.onclick = () =>{
  document.querySelector('.jnotify').style.display = 'none'
+}
+//Folder Sharing
+const folderSharing = get('#folderShare')
+folderSharing.addEventListener('click',function(){
+    const id = get('#folderShare').getAttribute('data-id');
+    if(id === null){
+        jNotify.error('Id Null','Coundnt process');
+        folderSharing.checked = false
+    }else{
+        if(folderSharing.checked){
+  setfolderSharing(id);
+}else{
+        removefoldersharing(id)
+        }
+    }
+})
+function setfolderSharing(folder){
+    const keyFolder = folder
+  var obj ;
+    try{
+        firebase.database().ref(`drive/${uid}/${keyFolder}`).update({
+            "share" : true
+        });
+        firebase.database().ref(`drive/${uid}/${keyFolder}`).once('value').then(function (snapshot) {
+          obj = snapshot.val();
+                for (const [key, value] of Object.entries(obj)) {
+                   console.log(value, key)
+                   if(value == true  || value == false){
+
+                   }else{
+                       if( key == 'folder'){
+                        firebase.database().ref('sharing/'+keyFolder+'/').update({
+                            folder : value
+                        });
+                       }else{
+                     firebase.database().ref('sharing/'+keyFolder+'/'+key).set({
+                         date : value.date,
+                         file : value.file,
+                         filename : value.filename,
+                         key : value.key,
+                         share : value.share,
+                         size : value.size,
+                         type : value.type
+                     })
+                    }
+                    }
+                  }
+             
+
+            })
+    jNotify.success('Folder Shared', 'folder Sharing type Public \n Only the Files which Currently Exists Will be Available. \n Files Which Will be added  in future will not be public \n To make them Public Unshare & Share Again ' , {delay : 5500})
+}catch(err){console.error(err)}
+}
+function removefoldersharing(id){
+    firebase.database().ref(`sharing`).child(id).remove();
+    firebase.database().ref(`drive/${uid}/${id}`).update({
+        "share" : false
+    });
 }

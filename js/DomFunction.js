@@ -391,7 +391,6 @@ function setfolderSharing(folder){
         firebase.database().ref(`drive/${uid}/${keyFolder}`).once('value').then(function (snapshot) {
           obj = snapshot.val();
                 for (const [key, value] of Object.entries(obj)) {
-                   console.log(value, key)
                    if(value == true  || value == false){
 
                    }else{
@@ -415,7 +414,7 @@ function setfolderSharing(folder){
              
 
             })
-    jNotify.success('Folder Shared', 'folder Sharing type Public \n Only the Files which Currently Exists Will be Available. \n Files Which Will be added  in future will not be public \n To make them Public Unshare & Share Again ' , {delay : 5500})
+   
 }catch(err){console.error(err)}
 }
 function removefoldersharing(id){

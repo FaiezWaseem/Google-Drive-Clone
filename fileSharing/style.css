@@ -35,8 +35,12 @@ align-items: center;
 }
 .card {
     width: 28% ;
-    height: 6rem;
+    height: auto;
+    overflow-y: hidden;
 
+}
+.card video {
+    height: 130px;
 }
  .main{
     display: none;
@@ -97,4 +101,16 @@ align-items: center;
  .header h1{
     font-size: 1rem;
 }
+}
+@media screen and (max-width: 468px) {
+    .card{
+        width: 100% !important;
+        height: auto;
+    }
+    .card video{
+        height: 120px;
+    }
+    .mr-4{
+        margin-right: 0 !important;
+    }
 }

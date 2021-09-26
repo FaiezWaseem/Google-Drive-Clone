@@ -101,9 +101,8 @@ function getFileShaingPermission(fid){
            })
            .catch(err =>{
            
-                console.warn(err)
-                console.clear();
-                console.log({user : uid , status : 'logged In'})
+                // console.warn(err)
+                // console.clear();
            
            })
 }
@@ -173,6 +172,14 @@ function uploadToDrive($){
               const elem = document.getElementById(f.fileSize)
               elem.innerText = '100%';
               elem.style.width = '100%'
+              firebase.database().ref(`drive/${uid}/${folder}`).once('value').then(function(snapshot){
+                if(snapshot.val().share){
+                  removefoldersharing(folder)
+                  setfolderSharing(folder)
+                }else{
+                   
+                }
+            })
           }catch(err){
               if(res.status === "Uploading"){
               }else{
@@ -205,7 +212,16 @@ function deleteFileDrive(fileId) {
         method: "POST",
          body: '' })
            .then(res => res.json())
-           .then(e => {console.log(e)})
+           .then(e => {console.log(e)
+            firebase.database().ref(`drive/${uid}/${folder}`).once('value').then(function(snapshot){
+              if(snapshot.val().share){
+                removefoldersharing(folder)
+                setfolderSharing(folder)
+              }else{
+                 
+              }
+          })
+          })
            .catch(err =>{console.error(err)})
   }
 //--------------------------------------------------------------------//  

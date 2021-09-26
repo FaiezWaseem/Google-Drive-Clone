@@ -49,11 +49,27 @@ function nofile(){
     <h1 style="color : red !important">File not Found </h1>
 </div> ` 
 }
+function picture(size , date , key , title ,link , share ){
+    return ` <div   date="${date}" size="${size}" share=${share} class="card mr-4 ${key}" id="${key}" key="${key}" link="${btoa(link)}" title="${title}" style="width: 28%" onclick="dropDown(this)">
+    <img class="card-img-top" src="${link}" loading="lazy" alt="Couldnt load">
+    <div class="card-body">
+    <h5 class="card-title mb-0 file" data-id="${key}"><i class="fas fa-image mr-4"></i>${title}</h5>                           
+    </div>
+</div>`
+}
+function filezip(size , date , key , title ,link , share ){
+    return `    <div class="card mr-4 ${key}" size="${size}" date="${date}" share=${share} style="width:28%; height: 6rem" id="${key}" title="${title}" key="${key}" link="${btoa(link)}"  onclick="dropDown(this)">
+    <div class="card-body">
+    <h5 class="card-title mb-0 file" data-id="${key}"> <i class="fas fa-file-archive mr-4"></i></i>${title}</h5>                           
+    </div>`
+}
 const extra = {
     img : img,
     zip : zip,
     video : video,
-    nofile : nofile
+    nofile : nofile,
+    picture : picture,
+    filezip : filezip
 }
 
 export {getParam , extra};

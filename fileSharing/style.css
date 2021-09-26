@@ -24,8 +24,22 @@ align-items: center;
  .header i {
     font-size: 2rem;
 }
+.multipleFiles {
+    display: none;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px 0px;
+    height: 86vh;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+.card {
+    width: 28% ;
+    height: 6rem;
+
+}
  .main{
-    display: grid;
+    display: none;
     place-items: center;
     width: 100vw;
     height: 80vh
@@ -49,12 +63,23 @@ align-items: center;
  .main .card i{
     font-size: 16rem;
 }
+@media screen and (max-width: 1268px) {
+    .card h1{
+        font-size: 1.7rem;
+    }
+}
 @media screen and (max-width: 768px) {
      .main img  ,  .main .card
 {   
     width: 280px;
     height: 200px;
     box-sizing: border-box;
+}
+.card h1{
+    font-size: 1.4rem;
+}
+.multipleFiles{
+    flex-wrap: wrap;
 }
  .main video{
     width: 300px;

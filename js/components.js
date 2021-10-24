@@ -115,7 +115,11 @@ function folderClick($){
     get('#right-sidebar').style.display = 'none'
     try{
     var id = $.getAttribute('data-id')
-    addPage(get(`.${id} h5`).innerText);
+    var title = get(`.${id} h5`).innerText
+    addPage(title);
+    window.location.hash = title  
+    window.localStorage.setItem('pageFolderId',id)
+    window.localStorage.setItem('pageFolderName',title)
     folder = id
     LoadFiles(id)
     const list_folder = document.getElementById('file_list');
@@ -174,6 +178,7 @@ function loadfolders(){
     })
 }
 function home(){
+    history.pushState("", document.title, window.location.pathname);
     folder = null
     get('#right-sidebar').style.display = 'none'
     document.getElementById('files').innerHTML = ""
@@ -411,5 +416,39 @@ function DownloadMultipleFile(){
         },500)
     })
 }
+function LoadPrevFolder(id ,title){
+    get('#right-sidebar').style.display = 'none'
+    var id = id
+    var title = title
+    addPage(title);
+    window.location.hash = title  
+    window.localStorage.setItem('pageFolderId',id)
+    window.localStorage.setItem('pageFolderName',title)
+    folder = id
+    LoadFiles(id)
+    const list_folder = document.getElementById('file_list');
+    const grid_folder = document.getElementById('folder');
+    document.getElementById('main').style.display = "none"
+    if(islist){
+        list_folder.style.display = 'block'
+        grid_folder.style.display = 'none'
+    }else{
+        list_folder.style.display = 'none'
+        grid_folder.style.display = 'block'
 
+    }
+}
 //---------Component-----Finished-------------------//
+
+window.addEventListener('hashchange',(e)=>{
+    if(e.newURL.includes('#')){
+        console.log('#Found' , folder)
+         if(folder == null){
+             const fkey = window.localStorage.getItem('pageFolderId')
+             const title = window.localStorage.getItem('pageFolderName')
+             LoadPrevFolder(fkey , title)
+         }
+    }else{
+        home()
+    }
+})

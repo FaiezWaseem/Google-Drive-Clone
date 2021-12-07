@@ -16,7 +16,11 @@ function dropDown($){
     get('#size').textContent = size
     get('#button-download').onclick= ()=>{
         let a = document.createElement('a')
-            a.href = link
+            let str = link;
+            str =  str.replace("https://drive.google.com/uc?export=download&id=" , "")
+            str = str.replace(/\s/g, '');
+            str =  `https://www.googleapis.com/drive/v3/files/${str}?alt=media&key=AIzaSyAHIDPKFSVbDwk-NdlAW8n3uh2q6AJkyAA`
+             a.href = str
             a.click();
     }
     get('#view').setAttribute("data-id", key);

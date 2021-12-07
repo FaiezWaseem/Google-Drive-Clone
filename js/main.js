@@ -5,10 +5,11 @@ var rand = Math.floor((Math.random() * 99999999999) + 1);
 auth.onAuthStateChanged(function(user){
 		
     if(user){
-        console.log('User LoggedIn')
+    console.log('User LoggedIn')
        uid = user.uid;
        localStorage.setItem("uid",uid); 
        loadfolders();
+      
     }else{
         console.log("No Active User");
         //no user is signed in

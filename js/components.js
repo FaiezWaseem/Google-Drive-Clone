@@ -117,7 +117,7 @@ function folderClick($){
     var id = $.getAttribute('data-id')
     var title = get(`.${id} h5`).innerText
     addPage(title);
-    window.location.hash = title  
+    window.location.hash = title 
     window.localStorage.setItem('pageFolderId',id)
     window.localStorage.setItem('pageFolderName',title)
     folder = id
@@ -411,7 +411,11 @@ function DownloadMultipleFile(){
     checkedbox.forEach((checkbox) =>{
         window.setTimeout(function(){
             let a = document.createElement('a')
-            a.href = checkbox.getAttribute('link')
+            let str = checkbox.getAttribute('link')
+            str =  str.replace("https://drive.google.com/uc?export=download&id=" , "")
+            str = str.replace(/\s/g, '');
+            str =  `https://www.googleapis.com/drive/v3/files/${str}?alt=media&key=AIzaSyAHIDPKFSVbDwk-NdlAW8n3uh2q6AJkyAA`
+            a.href = str
             a.click();
         },500)
     })

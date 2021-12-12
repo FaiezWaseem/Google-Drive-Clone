@@ -89,7 +89,7 @@ document.querySelector('.Loading-Modal h3').innerText = 'Video Gif preview uploa
       gif_url = `https://drive.google.com/uc?export=download&id=${e.fileId}`
       try{
         setTimeout(function () {
-          window.ReactNativeWebView.postMessage(`${JSON.stringify(gif_url)}`)
+          window.ReactNativeWebView.postMessage(`${gif_url}`)
         }, 2000)
       }catch(err){
         alert("File Url : "  + gif_url  , "\n Error Occured : "+err)

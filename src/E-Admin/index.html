@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload | Video Point</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <form id="form">
+        <div class="drag-area">
+            <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <header id="progress">CLick to Upload File</header>
+            <button>Browse File</button>
+                <input name="file" id="uploadfile" type="file" hidden/>
+        </div>
+    </form>
+              <div class="Loading-Modal">
+                <div>
+                  <!-- <img src="../assets/images/71814-loading-dots.gif" alt="Loading"> -->
+                  <h3>Initializing Please Wait ...</h3>
+                  <span>Please Do not Close The Window While Uploading... </span>
+              
+                </div>
+              </div>         
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/tanaikech/ResumableUploadForGoogleDrive_js@master/resumableupload_js.min.js"></script>
+  <script src="./main.js"></script>
+
+</body>
+</html>

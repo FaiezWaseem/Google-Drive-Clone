@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #5256ad;
+}
+.drag-area{
+  border: 2px dashed #fff;
+  height: 500px;
+  width: 700px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.drag-area.active{
+  border: 2px solid #fff;
+}
+.drag-area .icon{
+  font-size: 100px;
+  color: #fff;
+}
+.drag-area header{
+  font-size: 30px;
+  font-weight: 500;
+  color: #fff;
+}
+.drag-area span{
+  font-size: 25px;
+  font-weight: 500;
+  color: #fff;
+  margin: 10px 0 15px 0;
+}
+.drag-area button{
+  padding: 10px 25px;
+  font-size: 20px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  background: #fff;
+  color: #5256ad;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.drag-area img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+@media screen and (max-width : 468px) {
+  .drag-area{
+    width: 280px !important;
+    height: 400px !important; 
+  }
+  .drag-area header{
+    font-size: 1.4rem !important;
+  }
+}
+@media screen and (max-width : 568px) {
+  .drag-area{
+    width: 380px;
+    height: 450px;
+  }
+  .drag-area header{
+    font-size: 1.7rem;
+  }
+}
+.box-shadow input[type=text], select, textarea{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+  }
+ /* Style the label to display next to the inputs */
+.box-shadow label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+/* Style the submit button */
+.box-shadow input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+} 
+
+  .Loading-Modal{
+    position: fixed;
+    background-color: rgba(41, 38, 38, 0.5);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    pointer-events: none;
+    transition: all 0.3s;
+    place-items: center;
+    display: none;
+  }
+  .box-shadow{
+    display: grid;
+    place-items: center;
+    width: 80vw;
+  }
+  .box-shadow input{
+    margin: 20px;
+  }
+  .box-shadow input:nth-child(1){
+    padding: 10px;  
+  }
+  #Upload_btn:hover{
+    background-color: red;
+  color: #fff;
+  }
+  .Loading-Modal div{
+    width: 280px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2em;
+    background: white;
+    border-radius: 1%;
+    display: grid;
+    place-items: center;
+  }
+  .Loading-Modal div img{
+    width: 200px;
+    height: auto;
+  }

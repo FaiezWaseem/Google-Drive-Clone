@@ -87,9 +87,14 @@ function uploadThumbnailGif(file){
       console.log('Gif Uploaded')
 document.querySelector('.Loading-Modal h3').innerText = 'Video Gif preview uploaded successfully...'
       gif_url = `https://drive.google.com/uc?export=download&id=${e.fileId}`
-      setTimeout(function () {
-        window.ReactNativeWebView.postMessage(`${JSON.stringify(gif_url)}`)
-      }, 2000)
+      try{
+        setTimeout(function () {
+          window.ReactNativeWebView.postMessage(`${JSON.stringify(gif_url)}`)
+        }, 2000)
+      }catch(err){
+        alert("File Url : "  + gif_url  , "\n Error Occured : "+err)
+      }
+
       LoadingModal.style.display = "none"
       console.log(gif_url)
       return gif_url;

@@ -75,7 +75,7 @@ input.addEventListener("change", readFile);
 
 //Uploading Gif Thumbnail
 function uploadThumbnailGif(file){
-    const id = 'AKfycbwVJszGTGgfWl5Pexu8YrG010DMcJQVaDmyYqivoedIvm83ZTmi1rAdmKbGD6h8r5bu1g'
+    const id = 'AKfycbwAPEcOZTFUc1rNtys3khhJfBBftZP0FuR3Vxqa6BsAPFjtUkWIjrdZI-15aCcRIAS2'
     const url = `https://script.google.com/macros/s/${id}/exec`; 
     console.log('uploading Thumbnail Gif')
     const qs = new URLSearchParams({filename:`img${rand(100)+rand(789)}`, mimeType: 'image/gif'});
